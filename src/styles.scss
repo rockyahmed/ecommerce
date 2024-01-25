@@ -1,1 +1,9 @@
-/* You can add global styles to this file, and also import other style files */
+.app-layout{
+  display: flex;
+  .app-sidebar-menu{
+    flex-basis: 300px;
+  }
+  .app-main-body{
+    flex-grow: 1;
+  }
+}
