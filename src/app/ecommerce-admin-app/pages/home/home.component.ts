@@ -19,54 +19,31 @@ import { FormDataServiceService } from '../../../service/form-data-service.servi
   styleUrl: './home.component.scss',
 })
 export class HomeComponent implements OnInit {
+
   menuCreateForm = this.formBuilder.group({
     categoryName: ['', Validators.required],
     categoryID: ['', Validators.required],
   });
 
-  formDataArray: any[] = [];
+  formDataArray: any;
 
   constructor(
     private formBuilder: FormBuilder,
     public formDataService: FormDataServiceService
-  ) {}
+  ) { }
 
   ngOnInit() {
-    // this.formDataService.retrieveFormDataFromLocalStorage();
-    // this.formDataArray = this.formDataService.getFormDataArray();
-
-    const storedData = localStorage.getItem('form-data');
-
-    if (storedData !== null) {
-      this.formDataArray = JSON.parse(storedData);
-    }
+    this.formDataService.retrieveFormDataFromLocalStorage();
+    this.formDataArray = this.formDataService.getFormDataArray();
   }
 
   onSubmit() {
-    console.log(this.formDataArray);
+    console.log(this.menuCreateForm.value);
 
-    // this.formDataService.addFormData(this.menuCreateForm.value);
-    // this.formDataService.saveFormDataToLocalStorage();
+    this.formDataService.addFormData(this.menuCreateForm.value);
+    this.formDataService.saveFormDataToLocalStorage();
 
-    // this.menuCreateForm.reset();
-
-    const formData = this.menuCreateForm.value;
-
-    const categoryIdExists = this.formDataArray.some(
-      (entry: { categoryID: any }) => entry.categoryID === formData.categoryID
-    );
-
-    if (categoryIdExists) {
-      window.alert('Category ID  already exists');
-    } else {
-      this.formDataArray.push(this.menuCreateForm.value);
-
-      // Save updated form data array to localStorage
-      localStorage.setItem('form-data', JSON.stringify(this.formDataArray));
-
-      // Reset the form after submission
-      this.menuCreateForm.reset();
-    }
+    this.menuCreateForm.reset();
   }
 
   get getForms() {
