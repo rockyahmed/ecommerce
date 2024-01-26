@@ -57,7 +57,7 @@ export class HomeComponent implements OnInit {
     );
 
     if (categoryIdExists) {
-      window.alert('Category ID  already exists');
+      window.alert(`Category ID ${formData.categoryID} already exists. Entry again not Possible.`);
     } else {
       this.formDataArray.push(this.menuCreateForm.value);
 
