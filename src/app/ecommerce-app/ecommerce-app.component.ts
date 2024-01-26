@@ -12,14 +12,22 @@ import { FormsModule } from '@angular/forms';
 })
 export class EcommerceAppComponent implements OnInit {
 
-  formDataArray: any[] | undefined;
+  // formDataArray: any[] | undefined;
+
+  formDataArray: any[] = [];
 
   constructor(public formDataService: FormDataServiceService) {}
 
   ngOnInit() {
-    this.formDataService.retrieveFormDataFromLocalStorage();
-    this.formDataArray = this.formDataService.getFormDataArray();
+    // this.formDataService.retrieveFormDataFromLocalStorage();
+    // this.formDataArray = this.formDataService.getFormDataArray();
 
     console.log(this.formDataArray)
+
+    const storedData = localStorage.getItem('form-data');
+
+    if (storedData !== null) {
+      this.formDataArray = JSON.parse(storedData);
+    }
   }
 }
