@@ -1,1 +1,14 @@
-<app-home></app-home>
+<div class="app-layout">
+  <div class="app-sidebar-menu bg-body-secondary">
+    <h3 class="text-center">Our Menus</h3>
+    <ul class="list-group p-4">
+      <!-- <li class="list-group-item" *ngFor="let formData of formDataArray;">{{ formData.categoryName }} - {{ formData.categoryID }}</li> -->
+      <li class="list-group-item">
+        <a href="#">Menu Creation</a>
+      </li>
+    </ul>
+  </div>
+  <div class="app-main-body">
+    <router-outlet></router-outlet>
+  </div>
+</div>

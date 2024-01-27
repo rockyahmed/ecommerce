@@ -28,7 +28,6 @@ export class HomeComponent implements OnInit {
 
   constructor(
     private formBuilder: FormBuilder,
-    public formDataService: FormDataServiceService
   ) {}
 
   ngOnInit() {
@@ -70,6 +69,7 @@ export class HomeComponent implements OnInit {
   }
 
   get getForms() {
+    console.log('helloo')
     return this.menuCreateForm.controls;
   }
 }
