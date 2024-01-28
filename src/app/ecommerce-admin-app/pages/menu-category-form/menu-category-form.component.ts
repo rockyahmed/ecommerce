@@ -6,7 +6,7 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { menuCategory } from '../../../models/menu-category-model';
+import { childItems, menuCategory } from '../../../models/menu-category-model';
 
 @Component({
   selector: 'app-menu-category-form',
@@ -23,6 +23,7 @@ export class MenuCategoryFormComponent {
   });
 
   formDataArray: Array<menuCategory> = [];
+  subsections: Array<menuCategory> = []
 
   constructor(private formBuilder: FormBuilder) {}
 
@@ -34,31 +35,65 @@ export class MenuCategoryFormComponent {
     }
   }
 
-  onSubmit() {
-    console.log(this.formDataArray);
+  // onSubmit() {
+  //   console.log(this.formDataArray);
 
-    const formData = this.menuCreateForm.value;
+  //   const formData = this.menuCreateForm.value;
 
-    const categoryIdExists = this.formDataArray.some(
-      (entry: menuCategory) => entry.categoryID === formData.categoryID
-    );
+  //   const categoryIdExists = this.formDataArray.some(
+  //     (entry: menuCategory) => entry.categoryID === formData.categoryID
+  //   );
 
     
 
-    if (categoryIdExists) {
-      window.alert(
-        `Category ID ${formData.categoryID} already exists. Entry again not Possible.`
-      );
-    } else {
-      const formData = this.menuCreateForm.value as menuCategory;
-      this.formDataArray.push(formData);
+  //   if (categoryIdExists) {
+  //     window.alert(
+  //       `Category ID ${formData.categoryID} already exists. Entry again not Possible.`
+  //     );
+  //   } else {
+  //     const formData = this.menuCreateForm.value as menuCategory;
+  //     this.formDataArray.push(formData);
 
-      localStorage.setItem('form-data', JSON.stringify(this.formDataArray));
+  //     localStorage.setItem('form-data', JSON.stringify(this.formDataArray));
       
 
+  //     this.menuCreateForm.reset();
+  //   }
+  // }
+
+  onSubmit() {
+    console.log(this.formDataArray);
+    console.log(this.subsections);
+  
+    const formData = this.menuCreateForm.value as menuCategory;
+  
+    const categoryIdExists = this.formDataArray.some(
+      (entry: menuCategory) => entry.categoryID === formData.categoryID
+    );
+  
+    if (categoryIdExists) {
+      window.alert(
+        `Category ID ${formData.categoryID} already exists. Entry again not possible.`
+      );
+    } else {
+      this.formDataArray.push(formData);
+  
+      // Find items in formDataArray where categoryID matches fkParentID
+      const matchingSubsections = this.formDataArray.filter(
+        (entry: menuCategory) => entry.categoryID === formData.fkParentID
+      );
+  
+      // Add the matching subsections to the subsections array
+      this.subsections.push(...matchingSubsections);
+  
+      localStorage.setItem('form-data', JSON.stringify(this.formDataArray));
+  
       this.menuCreateForm.reset();
     }
   }
+  
+  
+  
 
 
 }

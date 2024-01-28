@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormDataServiceService } from '../service/form-data-service.service';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { menuCategory } from '../models/menu-category-model';
 
 @Component({
   selector: 'app-ecommerce-app',
@@ -12,15 +13,11 @@ import { FormsModule } from '@angular/forms';
 })
 export class EcommerceAppComponent implements OnInit {
 
-  // formDataArray: any[] | undefined;
+  formDataArray: Array<menuCategory> = [];
 
-  formDataArray: any[] = [];
-
-  constructor(public formDataService: FormDataServiceService) {}
+  constructor() {}
 
   ngOnInit() {
-    // this.formDataService.retrieveFormDataFromLocalStorage();
-    // this.formDataArray = this.formDataService.getFormDataArray();
 
     console.log(this.formDataArray)
 
