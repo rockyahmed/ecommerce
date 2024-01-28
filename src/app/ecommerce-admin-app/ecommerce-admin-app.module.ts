@@ -8,7 +8,7 @@ import { EcommerceAdminAppRoutingModule } from './ecommerce-admin-app-routing.mo
   declarations: [],
   imports: [
     CommonModule,
-    EcommerceAdminAppRoutingModule
+    EcommerceAdminAppRoutingModule,
   ]
 })
 export class EcommerceAdminAppModule { }
