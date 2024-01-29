@@ -1,12 +1,25 @@
 <div class="app-layout">
   <div class="app-sidebar-menu bg-body-secondary">
     <ul class="list-group p-4">
-      <li class="list-group-item" *ngFor="let formData of formDataArray;">{{ formData.categoryName }} - {{ formData.categoryID }}</li>
+      @for (formData of formDataArray; track formData.categoryID) {
+      @if(formData.fkParentID == '' || formData.fkParentID == null) {
+      <li class="list-group-item">
+        {{ formData.categoryName }} - id:{{ formData.categoryID }}
+        @if(hasMatchingChild(formData)) {
+        <ul class="ps-2">
+          @for(formDataChild of formDataArray; track formDataChild.fkParentID) {
+          @if(formDataChild.fkParentID == formData.categoryID) {
+          <li class="list-group-item">
+            {{ formDataChild.categoryName }} - id:{{ formDataChild.categoryID }}
+          </li>
+          } }
+        </ul>
+        }
+      </li>
+      } }
     </ul>
   </div>
   <div class="app-main-body">
-    <div class="card px-4 py-5">
-      
-    </div>
+    <div class="card px-4 py-5"></div>
   </div>
 </div>

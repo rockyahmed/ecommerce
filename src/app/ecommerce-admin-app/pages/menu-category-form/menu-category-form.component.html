@@ -40,9 +40,12 @@
         <select class="form-select" formControlName="fkParentID" [class.is-invalid]="
         menuCreateForm.get('fkParentID')!.invalid &&
         menuCreateForm.get('fkParentID')!.touched
-      ">
+      ">  
           @for (menuList of formDataArray; track menuList.categoryID) {
-          <option [value]="menuList.categoryID">{{menuList.categoryName}}</option>
+            @if(menuList.fkParentID == '' || menuList.fkParentID == null) {
+              <option [value]="menuList.categoryID">{{menuList.categoryName}}</option>
+            }
+          
           }
         </select>
       </div>

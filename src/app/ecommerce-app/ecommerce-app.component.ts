@@ -26,5 +26,10 @@ export class EcommerceAppComponent implements OnInit {
     if (storedData !== null) {
       this.formDataArray = JSON.parse(storedData);
     }
+    
+  }
+
+  hasMatchingChild(formData: menuCategory): boolean {
+    return this.formDataArray.some(formDataChild => formDataChild.fkParentID == formData.categoryID);
   }
 }

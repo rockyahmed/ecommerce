@@ -6,7 +6,7 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { childItems, menuCategory } from '../../../models/menu-category-model';
+import { menuCategory } from '../../../models/menu-category-model';
 
 @Component({
   selector: 'app-menu-category-form',
@@ -32,34 +32,9 @@ export class MenuCategoryFormComponent {
 
     if (storedData !== null) {
       this.formDataArray = JSON.parse(storedData);
+      // this.subsections = this.buildSubsections(this.formDataArray);
     }
   }
-
-  // onSubmit() {
-  //   console.log(this.formDataArray);
-
-  //   const formData = this.menuCreateForm.value;
-
-  //   const categoryIdExists = this.formDataArray.some(
-  //     (entry: menuCategory) => entry.categoryID === formData.categoryID
-  //   );
-
-    
-
-  //   if (categoryIdExists) {
-  //     window.alert(
-  //       `Category ID ${formData.categoryID} already exists. Entry again not Possible.`
-  //     );
-  //   } else {
-  //     const formData = this.menuCreateForm.value as menuCategory;
-  //     this.formDataArray.push(formData);
-
-  //     localStorage.setItem('form-data', JSON.stringify(this.formDataArray));
-      
-
-  //     this.menuCreateForm.reset();
-  //   }
-  // }
 
   onSubmit() {
     console.log(this.formDataArray);
@@ -82,6 +57,7 @@ export class MenuCategoryFormComponent {
       const matchingSubsections = this.formDataArray.filter(
         (entry: menuCategory) => entry.categoryID === formData.fkParentID
       );
+
   
       // Add the matching subsections to the subsections array
       this.subsections.push(...matchingSubsections);
@@ -91,6 +67,28 @@ export class MenuCategoryFormComponent {
       this.menuCreateForm.reset();
     }
   }
+  
+  // buildSubsections(formDataArray: menuCategory[]): menuCategory[] {
+  //   const result: menuCategory[] = [];
+  
+  //   formDataArray.forEach(formData => {
+  //     const matchingChild = formDataArray.find(child => child.fkParentID === formData.categoryID);
+  
+  //     if (matchingChild) {
+  //       const existingSubsection = result.find(item => item.categoryID === formData.categoryID);
+  
+  //       if (existingSubsection) {
+  //         existingSubsection.subsections = existingSubsection.subsections || [];
+  //         existingSubsection.subsections.push(matchingChild);
+  //       } else {
+  //         const newSubsection: menuCategory = { ...formData, subsections: [matchingChild] };
+  //         result.push(newSubsection);
+  //       }
+  //     }
+  //   });
+  
+  //   return result;
+  // }
   
   
   
