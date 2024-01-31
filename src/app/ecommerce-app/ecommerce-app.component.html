@@ -1,6 +1,6 @@
 <div class="app-layout">
   <div class="app-sidebar-menu bg-body-secondary">
-    <ul class="list-group p-4">
+    <!-- <ul class="list-group p-4">
       @for (formData of formDataArray; track formData.categoryID) {
       @if(formData.fkParentID == '' || formData.fkParentID == null) {
       <li class="list-group-item">
@@ -17,6 +17,16 @@
         }
       </li>
       } }
+    </ul> -->
+
+    <ul class="list-group">
+      <li class="list-group-item" *ngFor="let first of emptyfkid">
+
+        {{first.categoryName}}
+        <ul>
+          <li *ngFor="let second of havefkid">{{second.categoryName}}</li>
+        </ul>
+      </li>
     </ul>
   </div>
   <div class="app-main-body">

@@ -13,7 +13,29 @@ import { menuCategory } from '../models/menu-category-model';
 })
 export class EcommerceAppComponent implements OnInit {
 
+  // formDataArray: Array<menuCategory> = [];
+
+  // constructor() {}
+
+  // ngOnInit() {
+
+  //   console.log(this.formDataArray)
+
+  //   const storedData = localStorage.getItem('form-data');
+
+  //   if (storedData !== null) {
+  //     this.formDataArray = JSON.parse(storedData);
+  //   }
+    
+  // }
+
+  // hasMatchingChild(formData: menuCategory): boolean {
+  //   return this.formDataArray.some(formDataChild => formDataChild.fkParentID == formData.categoryID);
+  // }
+
   formDataArray: Array<menuCategory> = [];
+  emptyfkid: Array<menuCategory> = [];
+  havefkid: Array<menuCategory> = [];
 
   constructor() {}
 
@@ -25,6 +47,11 @@ export class EcommerceAppComponent implements OnInit {
 
     if (storedData !== null) {
       this.formDataArray = JSON.parse(storedData);
+
+      this.emptyfkid = this.formDataArray.filter(item => item.fkParentID === null);
+
+      this.havefkid = this.formDataArray.filter(x => x.categoryID === x.fkParentID);
+      console.log(this.havefkid, 'empty fk id');
     }
     
   }

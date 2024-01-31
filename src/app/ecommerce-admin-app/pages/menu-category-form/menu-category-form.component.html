@@ -37,15 +37,18 @@
       </div>
       <div class="col-lg-12 form-group mb-3">
         <label class="form-label">Menu Child Category List</label>
-        <select class="form-select" formControlName="fkParentID" [class.is-invalid]="
-        menuCreateForm.get('fkParentID')!.invalid &&
-        menuCreateForm.get('fkParentID')!.touched
-      ">  
+        <select
+          class="form-select"
+          formControlName="fkParentID"
+          [class.is-invalid]="
+            menuCreateForm.get('fkParentID')!.invalid &&
+            menuCreateForm.get('fkParentID')!.touched
+          "
+        >
           @for (menuList of formDataArray; track menuList.categoryID) {
-            @if(menuList.fkParentID == '' || menuList.fkParentID == null) {
-              <option [value]="menuList.categoryID">{{menuList.categoryName}}</option>
-            }
-          
+          <option [value]="menuList.categoryID">
+            {{ menuList.categoryName }}
+          </option>
           }
         </select>
       </div>
