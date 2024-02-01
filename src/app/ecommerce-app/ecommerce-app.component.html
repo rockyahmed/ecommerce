@@ -19,7 +19,7 @@
       } }
     </ul> -->
 
-    <ul class="list-group">
+    <!-- <ul class="list-group">
       <li class="list-group-item" *ngFor="let first of emptyfkid">
 
         {{first.categoryName}}
@@ -27,7 +27,30 @@
           <li *ngFor="let second of havefkid">{{second.categoryName}}</li>
         </ul>
       </li>
+    </ul> -->
+    @if(modifiedData.length > 0) {
+    <ul class="list-group p-4">
+      @for(item of modifiedData; track item.categoryID) {
+      <li class="list-group-item">
+        <a href="#" class="list-group-item">{{ item.categoryName }}</a>
+        <ul class="list-group pe-0">
+          @for(sub of item.subsections; track sub.categoryID) {
+          <li class="list-group-item border-0 pe-0">
+            <a href="#" class="list-group-item">{{ sub.categoryName }}</a>
+            <ul class="list-group ps-2">
+              @for(sub2 of sub.subsections; track sub2.categoryID){
+              <li class="list-group-item mt-1">
+                {{ sub2.categoryName }}
+              </li>
+              }
+            </ul>
+          </li>
+          }
+        </ul>
+      </li>
+      }
     </ul>
+    }
   </div>
   <div class="app-main-body">
     <div class="card px-4 py-5"></div>
