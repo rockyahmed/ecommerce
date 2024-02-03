@@ -18,16 +18,7 @@
       </li>
       } }
     </ul> -->
-
-    <!-- <ul class="list-group">
-      <li class="list-group-item" *ngFor="let first of emptyfkid">
-
-        {{first.categoryName}}
-        <ul>
-          <li *ngFor="let second of havefkid">{{second.categoryName}}</li>
-        </ul>
-      </li>
-    </ul> -->
+    <!-- 
     @if(modifiedData.length > 0) {
     <ul class="list-group p-4">
       @for(item of modifiedData; track item.categoryID) {
@@ -50,6 +41,40 @@
       </li>
       }
     </ul>
+    } -->
+    @if(modifiedData && modifiedData.length>0){
+
+    <ul class="list-group p-3">
+      @for(category of modifiedData; track category.categoryID) {
+      <li class="list-group-item border-0">
+        <a href="" class="list-group-item">{{ category.categoryName }}</a>
+        <ng-container
+          *ngTemplateOutlet="
+            recursiveCategory;
+            context: { $implicit: category }
+          "
+        ></ng-container>
+      </li>
+      }
+    </ul>
+
+    <ng-template #recursiveCategory let-category>
+      @if(category.subsections && category.subsections.length>0){
+      <ul class="ps-2">
+        @for( subsection of category.subsections; track subsection.categoryID ){
+        <li class="list-group-item border-0 px-0">
+          <a href="" class="list-group-item">{{ subsection.categoryName }}</a>
+          <ng-container
+            *ngTemplateOutlet="
+              recursiveCategory;
+              context: { $implicit: subsection }
+            "
+          ></ng-container>
+        </li>
+        }
+      </ul>
+      }
+    </ng-template>
     }
   </div>
   <div class="app-main-body">
