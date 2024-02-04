@@ -61,7 +61,7 @@ export class EcommerceAppComponent implements OnInit {
     if (storedData !== null) {
       this.formDataArray = JSON.parse(storedData);
     
-      const buildHierarchy = (parentId: number | null | undefined): menuCategory[] => {
+      const buildRecursive = (parentId: number | null | undefined): menuCategory[] => {
         const result: menuCategory[] = [];
     
         for (const item of this.formDataArray) {
@@ -73,7 +73,7 @@ export class EcommerceAppComponent implements OnInit {
               fkParentID: item.fkParentID,
             };
     
-            const children = buildHierarchy(item.categoryID);
+            const children = buildRecursive(item.categoryID);
             if (children.length > 0) {
               category.subsections = children;
             }
@@ -86,7 +86,7 @@ export class EcommerceAppComponent implements OnInit {
       };
     
       // Build the hierarchy starting from the root (categories with fkParentID === null or undefined)
-      const topLevelCategories = buildHierarchy(null);
+      const topLevelCategories = buildRecursive(null);
     
       // Assign the result to this.modifiedData
       this.modifiedData = topLevelCategories;
