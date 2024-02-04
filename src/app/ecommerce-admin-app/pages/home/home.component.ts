@@ -16,16 +16,15 @@ import { ActivatedRoute } from '@angular/router';
   styleUrl: './home.component.scss',
 })
 export class HomeComponent implements OnInit {
+  productForm = this.fb.group({
+    photo: [null, Validators.required],
+  });
 
+  constructor(private fb: FormBuilder) {}
 
-  constructor(
-    private route: ActivatedRoute
-  ) {
+  ngOnInit() {}
+
+  onSubmit() {
+    console.log(this.productForm.value)
   }
-
-  ngOnInit() {
-
-  }
-
-   
 }
