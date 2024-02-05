@@ -2,6 +2,7 @@
   display: flex;
   .app-sidebar-menu{
     flex-basis: 300px;
+    min-width: 300px;
   }
   .app-main-body{
     flex-grow: 1;
