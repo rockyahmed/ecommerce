@@ -4,7 +4,13 @@ export interface menuCategory {
   fkParentID?: number | undefined | '';
   subsections?:menuCategory[];
 }
-// export interface childItems {
-//   id: number;
-//   subSections?: childItems[];
-// }
+export interface ProductData {
+  productId: number | null;
+  productTitle: string | null;
+  productPrice: number | null;
+  images: string | null;
+  productDiscount: number | null;
+  productWeight: number | null;
+  productfkParentId: number | null;
+  productDescription: string | null;
+}
