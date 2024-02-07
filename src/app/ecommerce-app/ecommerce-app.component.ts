@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormDataServiceService } from '../service/form-data-service.service';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { menuCategory } from '../models/menu-category-model';
+import { ProductData, menuCategory } from '../models/menu-category-model';
 
 @Component({
   selector: 'app-ecommerce-app',
@@ -19,44 +19,19 @@ export class EcommerceAppComponent implements OnInit {
 
   modifiedData: Array<menuCategory> = [];
 
+  categoryProductArray: Array<ProductData> = [];
+
+  displayedProducts: ProductData[] = [];
+
   constructor() {}
 
   ngOnInit() {
-    console.log(this.formDataArray);
+    this.categoryMenuRecursiveFilter();
+    this.categoryProductFilter();
+  }
 
+  categoryMenuRecursiveFilter(){
     const storedData = localStorage.getItem('form-data');
-
-    // if (storedData !== null) {
-    //   this.formDataArray = JSON.parse(storedData);
-
-    //   const emptyfkid = this.formDataArray.filter(
-    //     (item) => item.fkParentID === null
-    //   );
-
-    //   for (const item of emptyfkid) {
-    //     const category = {} as menuCategory;
-    //     category.categoryID = item.categoryID;
-    //     category.categoryName = item.categoryName;
-    //     const childrenItem = this.formDataArray.filter(
-    //       (x) => x.fkParentID == item.categoryID
-    //     );
-    //     for (const c of childrenItem) {
-    //       const children2 = this.formDataArray.filter(
-    //         (y) => y.fkParentID == c.categoryID
-    //       );
-    //       const category2 = {} as menuCategory;
-    //       category2.categoryID = c.categoryID;
-    //       category2.categoryName = c.categoryName;
-    //       c.subsections = [...children2];
-    //     }
-
-    //     category.subsections = [...childrenItem];
-    //     this.modifiedData.push(category);
-
-    //     console.log('Modified Data Array: ', this.modifiedData);
-    //   }
-    // }
-
 
     if (storedData !== null) {
       this.formDataArray = JSON.parse(storedData);
@@ -91,13 +66,25 @@ export class EcommerceAppComponent implements OnInit {
       // Assign the result to this.modifiedData
       this.modifiedData = topLevelCategories;
     
-      console.log('Modified Data Array: ', this.modifiedData);
+      // console.log('Modified Data Array: ', this.modifiedData);
     }
-
-
-
-   
-
   }
+
+  categoryProductFilter() {
+    const productStoreData = localStorage.getItem('product-form-data');
+
+    if(productStoreData !== null) {
+      this.categoryProductArray = JSON.parse(productStoreData)
+    }
+  }
+
+  executeProductFilter(subcategory: menuCategory) {
+    const filteredProducts = this.categoryProductArray.filter(product => product.productfkParentId == subcategory.categoryID);
+  
+    this.displayedProducts = filteredProducts;
+
+    console.log('hello', this.displayedProducts)
+  }
+
 
 }
