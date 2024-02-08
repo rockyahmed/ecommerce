@@ -1,0 +1,84 @@
+<div class="app-modal">
+  <div class="modal-header">
+    <h5 class="modal-title">{{ title }}</h5>
+    <button
+      type="button"
+      class="btn-close"
+      (click)="bsModalRef.hide()"
+    ></button>
+  </div>
+  <div class="modal-body">
+    <form [formGroup]="productForm" (ngSubmit)="onSubmit()">
+      <div class="row">
+        <div class="col-lg-6 form-group mb-3">
+          <label class="form-label">Product Name</label>
+          <input
+            type="text"
+            class="form-control"
+            placeholder="Product Name"
+            formControlName="productTitle"
+            [class.is-invalid]="
+              productForm.get('productTitle')!.invalid &&
+              productForm.get('productTitle')!.touched
+            "
+          />
+        </div>
+        <div class="col-lg-6 form-group mb-3">
+          <label class="form-label">Product Price</label>
+          <input type="number" class="form-control" placeholder="00" formControlName="productPrice" [class.is-invalid]="
+          productForm.get('productPrice')!.invalid &&
+          productForm.get('productPrice')!.touched
+        "/>
+        </div>
+        <div class="col-lg-6 form-group mb-3">
+          <label class="form-label">Upload</label>
+          <input
+            type="file"
+            class="form-control"
+            formControlName="photo"
+            id="inputGroupFile01"
+            [class.is-invalid]="
+              productForm.get('photo')!.invalid &&
+              productForm.get('photo')!.touched
+            "
+          />
+        </div>
+        <div class="col-lg-6 form-group mb-3">
+          <label class="form-label">Discount</label>
+          <input type="number" class="form-control" formControlName="productDiscount" />
+        </div>
+        <div class="col-lg-6 form-group mb-3">
+          <label class="form-label">Weight</label>
+          <input type="number" class="form-control" formControlName="productWeight" [class.is-invalid]="
+          productForm.get('productWeight')!.invalid &&
+          productForm.get('productWeight')!.touched
+        "/>
+        </div>
+        <div class="col-lg-6 form-group mb-3">
+          <label class="form-label">Category</label>
+          <select class="form-select" formControlName="productfkParentId" [class.is-invalid]="
+          productForm.get('productfkParentId')!.invalid &&
+          productForm.get('productfkParentId')!.touched
+        ">
+            <option *ngFor="let category of formDataArray" [value]="category.categoryID">
+              {{ category.categoryName }}
+            </option>
+          </select>
+        </div>
+        <div class="col-lg-12 form-group mb-3">
+          <label class="form-label">Description</label>
+          <textarea class="form-control" rows="5" formControlName="productDescription"></textarea>
+        </div>
+        <div class="col-lg-12 mt-4 form-group d-flex justify-content-center">
+          <button type="button" class="btn btn-danger" (click)="bsModalRef.hide()">Cancel</button>
+          <button
+            type="submit"
+            class="btn btn-primary ms-3"
+          >
+            Submit
+          </button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

@@ -3,11 +3,12 @@ import { FormDataServiceService } from '../service/form-data-service.service';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ProductData, menuCategory } from '../models/menu-category-model';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-ecommerce-app',
   standalone: true,
-  imports: [FormsModule, CommonModule],
+  imports: [FormsModule, CommonModule, RouterLink],
   templateUrl: './ecommerce-app.component.html',
   styleUrl: './ecommerce-app.component.scss',
 })

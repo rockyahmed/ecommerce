@@ -61,9 +61,15 @@
     <ng-template #recursiveCategory let-category>
       @if(category.subsections && category.subsections.length>0){
       <ul class="ps-2">
-        @for( subsection of category.subsections; track subsection.categoryID; ;let i = $index  ){
+        @for( subsection of category.subsections; track subsection.categoryID;
+        ;let i = $index ){
         <li class="list-group-item border-0 px-0">
-          <a href="javascript:void(0);" class="list-group-item" (click)="executeProductFilter(subsection)">{{ subsection.categoryName }}</a>
+          <a
+          [routerLink]="['/subcategory']" [queryParams]="{ subcategoryId: subsection.categoryID, categoryId: category.categoryID }"
+            class="list-group-item"
+            (click)="executeProductFilter(subsection)"
+            >{{ subsection.categoryName }}</a
+          >
           <ng-container
             *ngTemplateOutlet="
               recursiveCategory;
@@ -84,9 +90,11 @@
           <div class="card">
             <!-- <img src="..." class="card-img-top" alt="..."> -->
             <div class="card-body">
-              <h5 class="card-title">{{product.productTitle}}</h5>
-              <p class="card-text">{{product.productDescription}}</p>
-              <a href="#" class="btn btn-primary">{{product.productDiscount}}</a>
+              <h5 class="card-title">{{ product.productTitle }}</h5>
+              <p class="card-text">{{ product.productDescription }}</p>
+              <a href="#" class="btn btn-primary">{{
+                product.productDiscount
+              }}</a>
             </div>
           </div>
         </div>
