@@ -5,6 +5,7 @@ import { EcommerceAdminAppComponent } from './ecommerce-admin-app.component';
 import { MenuCategoryFormComponent } from './pages/menu-category-form/menu-category-form.component';
 import { ProductSetupComponent } from './pages/product-setup/product-setup.component';
 import { ProductListComponent } from './pages/product-list/product-list.component';
+import { UserRoleFormComponent } from './pages/user-role-form/user-role-form.component';
 
 const routes: Routes = [
   {
@@ -16,6 +17,7 @@ const routes: Routes = [
       {path: 'menu-category-form', component: MenuCategoryFormComponent},
       {path: 'product-list', component: ProductListComponent},
       {path: 'product-setup', component: ProductSetupComponent},
+      {path: 'user-role-form', component:UserRoleFormComponent},
     ],
   },
 ];

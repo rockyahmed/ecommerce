@@ -1,0 +1,104 @@
+<div class="app-layout">
+  <div class="app-sidebar-menu bg-body-secondary">
+    <!-- <ul class="list-group p-4">
+      @for (formData of formDataArray; track formData.categoryID) {
+      @if(formData.fkParentID == '' || formData.fkParentID == null) {
+      <li class="list-group-item">
+        {{ formData.categoryName }} - id:{{ formData.categoryID }}
+        @if(hasMatchingChild(formData)) {
+        <ul class="ps-2">
+          @for(formDataChild of formDataArray; track formDataChild.fkParentID) {
+          @if(formDataChild.fkParentID == formData.categoryID) {
+          <li class="list-group-item">
+            {{ formDataChild.categoryName }} - id:{{ formDataChild.categoryID }}
+          </li>
+          } }
+        </ul>
+        }
+      </li>
+      } }
+    </ul> -->
+    <!-- 
+    @if(modifiedData.length > 0) {
+    <ul class="list-group p-4">
+      @for(item of modifiedData; track item.categoryID) {
+      <li class="list-group-item">
+        <a href="#" class="list-group-item">{{ item.categoryName }}</a>
+        <ul class="list-group pe-0">
+          @for(sub of item.subsections; track sub.categoryID) {
+          <li class="list-group-item border-0 pe-0">
+            <a href="#" class="list-group-item">{{ sub.categoryName }}</a>
+            <ul class="list-group ps-2">
+              @for(sub2 of sub.subsections; track sub2.categoryID){
+              <li class="list-group-item mt-1">
+                {{ sub2.categoryName }}
+              </li>
+              }
+            </ul>
+          </li>
+          }
+        </ul>
+      </li>
+      }
+    </ul>
+    } -->
+    @if(modifiedData && modifiedData.length>0){
+
+    <ul class="list-group p-3">
+      @for(category of modifiedData; track category.categoryID) {
+      <li class="list-group-item border-0">
+        <a href="" class="list-group-item">{{ category.categoryName }}</a>
+        <ng-container
+          *ngTemplateOutlet="
+            recursiveCategory;
+            context: { $implicit: category }
+          "
+        ></ng-container>
+      </li>
+      }
+    </ul>
+
+    <ng-template #recursiveCategory let-category>
+      @if(category.subsections && category.subsections.length>0){
+      <ul class="ps-2">
+        @for( subsection of category.subsections; track subsection.categoryID;
+        ;let i = $index ){
+        <li class="list-group-item border-0 px-0">
+          <a
+            href="javascript:void(0)"
+            class="list-group-item"
+            (click)="executeProductFilter(subsection)"
+            >{{ subsection.categoryName }}</a
+          >
+          <ng-container
+            *ngTemplateOutlet="
+              recursiveCategory;
+              context: { $implicit: subsection }
+            "
+          ></ng-container>
+        </li>
+        }
+      </ul>
+      }
+    </ng-template>
+    }
+  </div>
+  <div class="app-main-body">
+    <div class="card px-4 py-5">
+      <div class="row">
+        <div class="col-lg-4" *ngFor="let product of displayedProducts">
+          <div class="card">
+            <!-- <img src="..." class="card-img-top" alt="..."> -->
+            <div class="card-body">
+              <h5 class="card-title">{{ product.productTitle }}</h5>
+              <p class="card-text">{{ product.productDescription }}</p>
+              <a href="#" class="btn btn-primary">{{
+                product.productDiscount
+              }}</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
