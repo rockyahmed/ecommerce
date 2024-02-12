@@ -14,3 +14,8 @@ export interface ProductData {
   productfkParentId?: number | null;
   productDescription?: string | null;
 }
+
+export interface RoleName {
+  roleTypeId: number;
+  roleTypeName: string;
+}

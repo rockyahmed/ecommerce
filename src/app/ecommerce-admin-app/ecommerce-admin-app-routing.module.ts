@@ -6,6 +6,7 @@ import { MenuCategoryFormComponent } from './pages/menu-category-form/menu-categ
 import { ProductSetupComponent } from './pages/product-setup/product-setup.component';
 import { ProductListComponent } from './pages/product-list/product-list.component';
 import { UserRoleFormComponent } from './pages/user-role-form/user-role-form.component';
+import { UserRoleSetupComponent } from './pages/user-role-setup/user-role-setup.component';
 
 const routes: Routes = [
   {
@@ -17,6 +18,7 @@ const routes: Routes = [
       {path: 'menu-category-form', component: MenuCategoryFormComponent},
       {path: 'product-list', component: ProductListComponent},
       {path: 'product-setup', component: ProductSetupComponent},
+      {path: 'user-role-setup', component:UserRoleSetupComponent},
       {path: 'user-role-form', component:UserRoleFormComponent},
     ],
   },
