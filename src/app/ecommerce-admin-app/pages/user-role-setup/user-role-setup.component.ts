@@ -1,6 +1,11 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
-import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import {
+  FormBuilder,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
 import { RoleName } from '../../../models/menu-category-model';
 
 @Component({
@@ -8,19 +13,18 @@ import { RoleName } from '../../../models/menu-category-model';
   standalone: true,
   imports: [CommonModule, ReactiveFormsModule],
   templateUrl: './user-role-setup.component.html',
-  styleUrl: './user-role-setup.component.scss'
+  styleUrl: './user-role-setup.component.scss',
 })
 export class UserRoleSetupComponent {
-
   roleType: FormGroup;
 
-  roles: Array<RoleName> = []
+  roles: Array<RoleName> = [];
 
-  constructor( private fb: FormBuilder ) {
-   this.roleType = this.fb.group({
+  constructor(private fb: FormBuilder) {
+    this.roleType = this.fb.group({
       roleTypeId: ['', Validators.required],
-      roleTypeName: ['', Validators.required]
-    })
+      roleTypeName: ['', Validators.required],
+    });
   }
 
   ngOnInit() {
@@ -40,6 +44,14 @@ export class UserRoleSetupComponent {
   }
 
   private getNextRoleId(): number {
-    return this.roles.length + 1
+    // return this.roles.length + 1
+    const storedData = localStorage.getItem('roles');
+    if (storedData !== null) {
+      const roleList = JSON.parse(storedData);
+      return roleList[roleList?.length - 1].roleTypeId + 1
+    }
+
+    return 0;
   }
+  
 }
