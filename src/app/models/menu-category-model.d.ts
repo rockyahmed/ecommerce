@@ -19,3 +19,11 @@ export interface RoleName {
   roleTypeId: number;
   roleTypeName: string;
 }
+
+export interface UsersRoleForm {
+  userId: number;
+  userName: string;
+  userEmail: string;
+  userPhone: number;
+  userRoleType: string;
+}
