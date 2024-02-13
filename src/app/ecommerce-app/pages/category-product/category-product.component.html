@@ -64,15 +64,7 @@
         @for( subsection of category.subsections; track subsection.categoryID;
         ;let i = $index ){
         <li class="list-group-item border-0 px-0">
-          <!-- [routerLink]="['/category-product']"
-            [queryParams]="{
-              subcategoryId: subsection.categoryID,
-              categoryId: category.categoryID
-            }" -->
           <a
-            [routerLink]="['/subcategory']"
-            [queryParams]="{ subcategoryId: subsection.categoryID }"
-            class="list-group-item"
             class="list-group-item"
             (click)="executeProductFilter(subsection)"
             >{{ subsection.categoryName }}</a

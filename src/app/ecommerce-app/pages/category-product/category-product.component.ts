@@ -26,6 +26,10 @@ export class CategoryProductComponent {
   ngOnInit() {
     this.categoryMenuRecursiveFilter();
     this.categoryProductFilter();
+
+    this.routeSubscribe();
+    
+   
    
   }
 
@@ -82,20 +86,22 @@ export class CategoryProductComponent {
     }
   }
 
-  executeProductFilter(subcategory: menuCategory) {
-    const filteredProducts = this.categoryProductArray.filter(
-      (product) => product.productfkParentId == subcategory.categoryID
-    );
-
-    this.displayedProducts = filteredProducts;
+  routeSubscribe(){
     this.route.queryParams.subscribe((data: any) => {
       if(data){
-        this.router.navigate([], {
-          relativeTo: this.route,
-          queryParams: { subcategoryId: subcategory.categoryID },
-          replaceUrl: true
-        });
+       const filteredProducts = this.categoryProductArray.filter(
+        (product) => product.productfkParentId == data.subcategoryId
+      );
+      this.displayedProducts = filteredProducts;
       }
     });
+  }
+
+  executeProductFilter(subcategory: menuCategory) {
+    this.router.navigate([], {
+      relativeTo: this.route,
+      queryParams: { subcategoryId: subcategory.categoryID },
+      replaceUrl: true
+    })
   }
 }
