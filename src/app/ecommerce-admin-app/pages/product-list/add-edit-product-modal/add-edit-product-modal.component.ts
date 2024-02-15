@@ -1,7 +1,15 @@
 import { Component } from '@angular/core';
-import { FormBuilder, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import {
+  FormBuilder,
+  FormsModule,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
 import { BsModalRef, ModalModule } from 'ngx-bootstrap/modal';
-import { ProductData, menuCategory } from '../../../../models/menu-category-model';
+import {
+  ProductData,
+  menuCategory,
+} from '../../../../models/menu-category-model';
 import { CommonModule } from '@angular/common';
 
 @Component({
@@ -9,10 +17,10 @@ import { CommonModule } from '@angular/common';
   standalone: true,
   imports: [FormsModule, ReactiveFormsModule, CommonModule, ModalModule],
   templateUrl: './add-edit-product-modal.component.html',
-  styleUrl: './add-edit-product-modal.component.scss'
+  styleUrl: './add-edit-product-modal.component.scss',
 })
 export class AddEditProductModalComponent {
-  title= "Modal Title";
+  title = 'Modal Title';
 
   formDataArray: Array<menuCategory> = [];
 
@@ -31,7 +39,7 @@ export class AddEditProductModalComponent {
     productDescription: [''],
   });
 
-  constructor(private fb: FormBuilder,  public bsModalRef: BsModalRef,) {
+  constructor(private fb: FormBuilder, public bsModalRef: BsModalRef) {
     const storedIdCounter = localStorage.getItem('idCounter');
     this.idCounter = storedIdCounter ? parseInt(storedIdCounter) : 1;
   }
@@ -41,6 +49,12 @@ export class AddEditProductModalComponent {
 
     if (storeData !== null) {
       this.formDataArray = JSON.parse(storeData);
+    }
+
+    const productstoreData = localStorage.getItem('product-form-data');
+
+    if (productstoreData !== null) {
+      this.productFormArray = JSON.parse(productstoreData);
     }
   }
 

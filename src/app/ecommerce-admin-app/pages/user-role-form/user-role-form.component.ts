@@ -42,13 +42,21 @@ export class UserRoleFormComponent {
     if (storedData !== null) {
       this.fkRoleTypeArray = JSON.parse(storedData);
     }
+    this.userRoleForm.get('userRoleId')?.setValue(this.getUserFormId());
+
+    const userstoredData = localStorage.getItem('user-role-form');
+    if (userstoredData !== null) {
+      this.UsersRoleFormArray = JSON.parse(userstoredData);
+    }
   }
 
   onSubmit() {
-    console.log(this.userRoleForm.controls.roleStatus);
+    // console.log(this.userRoleForm);
 
     const usersRoleFormData = this.userRoleForm.value as UsersRoleForm;
-    this.UsersRoleFormArray.push(usersRoleFormData)
+    this.UsersRoleFormArray.push(usersRoleFormData);
+
+    console.log(usersRoleFormData);
 
     localStorage.setItem(
       'user-role-form',
@@ -56,5 +64,15 @@ export class UserRoleFormComponent {
     );
 
     this.userRoleForm.reset();
+    this.userRoleForm.get('userRoleId')?.setValue(this.getUserFormId());
+  }
+
+  private getUserFormId() {
+    const userStoreData = localStorage.getItem('user-role-form');
+    if (userStoreData !== null) {
+      const userRoleList = JSON.parse(userStoreData);
+      return userRoleList[userRoleList?.length - 1].userRoleId + 1;
+    }
+    return 0;
   }
 }
