@@ -44,7 +44,6 @@ export class UserRoleSetupComponent {
   }
 
   private getNextRoleId(): number {
-    // return this.roles.length + 1
     const storedData = localStorage.getItem('roles');
     if (storedData !== null) {
       const roleList = JSON.parse(storedData);

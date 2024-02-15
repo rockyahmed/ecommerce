@@ -26,4 +26,5 @@ export interface UsersRoleForm {
   userEmail: string;
   userPhone: number;
   userRoleType: string;
+  userRStatus: boolean;
 }
