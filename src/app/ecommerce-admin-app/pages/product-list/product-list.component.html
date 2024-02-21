@@ -98,7 +98,13 @@
       <div class="left">
         <p>Showing Result</p>
       </div>
-      <button type="button" class="btn btn-primary" (click)="addEditProductModal()">+ Add Product</button>
+      <button
+        type="button"
+        class="btn btn-primary"
+        (click)="addEditProductModal(null)"
+      >
+        + Add Product
+      </button>
     </div>
   </div>
   <table class="table border">
@@ -116,26 +122,46 @@
     </thead>
     <tbody>
       <tr *ngFor="let product of productList">
-        <td>{{product.productId}}</td>
-        <td>{{product.productTitle}}</td>
-        <td>{{product.productDescription}}</td>
-        <td>{{product.productPrice}}</td>
+        <td>{{ product.productId }}</td>
+        <td>{{ product.productTitle }}</td>
+        <td>{{ product.productDescription }}</td>
+        <td>{{ product.productPrice }}</td>
         <td>Images</td>
-        <td>{{product.productDiscount}}</td>
-        <td>{{product.productWeight}}</td>
+        <td>{{ product.productDiscount }}</td>
+        <td>{{ product.productWeight }}</td>
         <td>
           <div class="btn-group" dropdown>
-            <button id="button-basic" dropdownToggle type="button" class="btn btn-primary dropdown-toggle"
-                    aria-controls="dropdown-basic">
-               <span class="caret"></span>
+            <button
+              id="button-basic"
+              dropdownToggle
+              type="button"
+              class="btn btn-primary dropdown-toggle"
+              aria-controls="dropdown-basic"
+            >
+              <span class="caret"></span>
             </button>
-            <ul id="dropdown-basic" *dropdownMenu class="dropdown-menu"
-                role="menu" aria-labelledby="button-basic">
-              <li role="menuitem"><a class="dropdown-item" href="#">Action</a></li>
-              <li role="menuitem"><a class="dropdown-item" href="#">Another action</a></li>
-              <li role="menuitem"><a class="dropdown-item" href="#">Something else here</a></li>
-              <li class="divider dropdown-divider"></li>
-              <li role="menuitem"><a class="dropdown-item" href="#">Separated link</a>
+            <ul
+              id="dropdown-basic"
+              *dropdownMenu
+              class="dropdown-menu dropdown-menu-right"
+              role="menu"
+              aria-labelledby="button-basic"
+            >
+              <li role="menuitem">
+                <a
+                  class="dropdown-item"
+                  href="javascript:void(0)"
+                  (click)="addEditProductModal(product)"
+                  >Edit</a
+                >
+              </li>
+              <li role="menuitem">
+                <a
+                  class="dropdown-item"
+                  href="javascript:void(0)"
+                  (click)="deleteProduct(productList.indexOf(product))"
+                  >Delete</a
+                >
               </li>
             </ul>
           </div>

@@ -18,7 +18,7 @@ import { HttpClientModule } from '@angular/common/http';
     ModalModule,
     BsDropdownModule,
   ],
-  providers: [BsModalService,],
+  providers: [BsModalService],
   templateUrl: './product-list.component.html',
   styleUrl: './product-list.component.scss',
 })
@@ -26,6 +26,7 @@ export class ProductListComponent {
   modalRef: BsModalRef | undefined;
 
   productList: Array<ProductData> = [];
+  archivedProducts: Array<ProductData> = [];
 
   constructor(private BsModalService: BsModalService) {}
 
@@ -34,16 +35,33 @@ export class ProductListComponent {
     if (storedData !== null) {
       this.productList = JSON.parse(storedData);
     }
+
+    const archivedData = localStorage.getItem('archived-products');
+    if(archivedData !== null){
+      this.archivedProducts = JSON.parse(archivedData);
+    }
   }
 
-  addEditProductModal() {
+  addEditProductModal(product: ProductData | null = null) {
+    const initialState = {
+      title: 'Product Modal',
+      product: product, // Pass the selected product here
+    };
+
     this.modalRef = this.BsModalService.show(AddEditProductModalComponent, {
       class: 'modal-lg',
-      initialState: {
-        title: 'Product Modal',
-      },
+      initialState: initialState,
       backdrop: true,
       ignoreBackdropClick: true,
     });
+  }
+
+  deleteProduct(productIndex: number) {
+    if (confirm('Are you sure you want to delete this product?')) {
+      const deletedProduct = this.productList.splice(productIndex, 1)[0]; // Remove the product from the list
+      this.archivedProducts.push(deletedProduct); // Move the deleted product to the archive array
+      localStorage.setItem('product-form-data', JSON.stringify(this.productList)); // Update localStorage
+      localStorage.setItem('archived-products', JSON.stringify(this.archivedProducts)); // Update localStorage with archived products
+    }
   }
 }

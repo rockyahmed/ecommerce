@@ -28,6 +28,12 @@ export class UserRoleSetupComponent {
   }
 
   ngOnInit() {
+
+    const roleTypeData = localStorage.getItem('roles');
+    if(roleTypeData !== null) {
+      this.roles = JSON.parse(roleTypeData)
+    }
+
     this.roleType.get('roleTypeId')?.setValue(this.getNextRoleId());
   }
 
