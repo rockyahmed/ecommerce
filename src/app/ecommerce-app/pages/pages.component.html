@@ -2,7 +2,52 @@
   <div class="container-fluid">
     <a class="navbar-brand text-white">Navbar</a>
     <form class="d-flex" role="search">
-      <button class="btn btn-light" type="button" routerLink="customer-form">Login</button>
+      <div class="btn-group" dropdown>
+        <button
+          id="button-basic"
+          dropdownToggle
+          type="button"
+          class="btn btn-primary dropdown-toggle"
+          aria-controls="dropdown-basic"
+        >
+          Cart <span class="caret"></span>
+        </button>
+        <ul *dropdownMenu class="dropdown-menu dropdown-menu-right" style="width: 300px;">
+          <li class="dropdown-item border-bottom" role="menuitem">
+            <div class="d-flex justify-content-between align-items-center">
+              <div class="left">
+                <h6>Porduct 01</h6>
+                <p>Price: 200</p>
+              </div>
+              <div class="right">
+                <button
+                  type="button"
+                  class="btn-close"
+                  aria-label="Close"
+                ></button>
+              </div>
+            </div>
+          </li>
+          <li class="dropdown-item" role="menuitem">
+            <div class="d-flex justify-content-between">
+              <div class="left">
+                <h6>Porduct 01</h6>
+                <p>Price: 200</p>
+              </div>
+              <div class="right">
+                <button
+                  type="button"
+                  class="btn-close"
+                  aria-label="Close"
+                ></button>
+              </div>
+            </div>
+          </li>
+        </ul>
+      </div>
+      <button class="btn btn-light ms-2" type="button" routerLink="customer-form">
+        Login
+      </button>
     </form>
   </div>
 </nav>
