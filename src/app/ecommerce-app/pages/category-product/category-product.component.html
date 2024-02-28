@@ -105,24 +105,7 @@
           class="col-lg-4 mb-3"
           *ngFor="let product of groupProduct.products"
         >
-          <div class="card">
-            <!-- <img src="..." class="card-img-top" alt="..."> -->
-            <div class="card-body">
-              <h4 class="card-title">{{ product.productTitle }}</h4>
-              <h6 class="d-flex justify-content-between align-items-center">
-                Price: {{ product.productPrice }} TK
-                <a href="#" class="btn btn-primary">{{
-                  product.productDiscount
-                }}</a>
-              </h6>
-              <p class="card-text">{{ product.productDescription }}</p>
-
-              <div class="d-flex justify-content-between">
-                <button class="btn btn-primary">Add to Cart</button>
-              <button class="btn btn-danger">Remove to Cart</button>
-              </div>
-            </div>
-          </div>
+          <app-product [product]="product"></app-product>
         </div>
       </div>
       }

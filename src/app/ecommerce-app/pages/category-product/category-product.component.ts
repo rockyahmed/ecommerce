@@ -1,16 +1,18 @@
 import { CommonModule } from '@angular/common';
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { CategoryGroupProduct, ProductData, menuCategory } from '../../../models/menu-category-model';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
+import { ProductComponent } from './product/product.component';
 
 @Component({
   selector: 'app-category-product',
   standalone: true,
-  imports: [CommonModule, RouterModule],
+  imports: [CommonModule, RouterModule, ProductComponent],
   templateUrl: './category-product.component.html',
   styleUrl: './category-product.component.scss',
 })
 export class CategoryProductComponent {
+
   formDataArray: Array<menuCategory> = [];
 
   // modifiedData: menuCategory[] = [];
@@ -130,7 +132,7 @@ export class CategoryProductComponent {
         products: product,
       });
     }
-    console.log(this.categoryWiseProducts);
+    // console.log(this.categoryWiseProducts);
     // return newProductArray;
   }
 }
