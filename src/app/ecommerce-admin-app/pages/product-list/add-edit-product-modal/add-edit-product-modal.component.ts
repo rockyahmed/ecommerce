@@ -72,7 +72,7 @@ export class AddEditProductModalComponent {
       productDiscount: [''],
       productWeight: ['', Validators.required],
       productfkParentId: ['', Validators.required],
-      productDescription: [''],
+      productDescription: ['',],
     });
   }
 

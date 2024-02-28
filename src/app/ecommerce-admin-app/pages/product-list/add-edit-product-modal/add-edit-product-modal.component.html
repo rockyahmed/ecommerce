@@ -8,7 +8,7 @@
     ></button>
   </div>
   <div class="modal-body">
-    <form [formGroup]="productForm" (ngSubmit)="onSubmit()">
+    <form [formGroup]="productForm" (ngSubmit)="onSubmit()" #ngForm>
       <div class="row">
         <div class="col-lg-6 form-group mb-3">
           <label class="form-label">Product Name</label>
@@ -104,7 +104,13 @@
           >
             Cancel
           </button>
-          <button type="submit" class="btn btn-primary ms-3">Submit</button>
+          <button
+            type="submit"
+            class="btn btn-primary ms-3"
+            [disabled]="productForm.invalid"
+          >
+            Submit
+          </button>
         </div>
       </div>
     </form>

@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
-import { ProductData, menuCategory } from '../../../models/menu-category-model';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { CategoryGroupProduct, ProductData, menuCategory } from '../../../models/menu-category-model';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 
 @Component({
@@ -21,6 +21,8 @@ export class CategoryProductComponent {
 
   displayedProducts: ProductData[] = [];
 
+  categoryWiseProducts: CategoryGroupProduct[] = [];
+
   constructor(private route: ActivatedRoute, private router: Router) {}
 
   ngOnInit() {
@@ -28,6 +30,7 @@ export class CategoryProductComponent {
     this.categoryProductFilter();
 
     this.routeSubscribe();
+    this.groupByProduct();
   }
 
   categoryMenuRecursiveFilter() {
@@ -86,7 +89,6 @@ export class CategoryProductComponent {
   routeSubscribe() {
     this.route.queryParams.subscribe((data: any) => {
       if (data) {
-        console.log(data, 'data check');
         const filteredProducts = this.categoryProductArray.filter(
           (product) => product.productfkParentId == data.subcategoryId
         );
@@ -101,5 +103,34 @@ export class CategoryProductComponent {
       queryParams: { subcategoryId: subcategory.categoryID },
       replaceUrl: true,
     });
+  }
+
+  groupByProduct() {
+    // console.log(this.categoryProductArray);
+
+    const categoryIDs = this.categoryProductArray.map(
+      (product) => product.productfkParentId
+    );
+
+    const uniqueCategoryIDs = [...new Set(categoryIDs)];
+
+    // console.log(uniqueCategoryIDs);
+
+    for (let categoryIds of uniqueCategoryIDs )  {
+      const product = this.categoryProductArray.filter(
+        (product) => product.productfkParentId === categoryIds
+      );
+      // console.log(product, 'helo')
+
+      const productName = this.formDataArray.find((formData) => formData.categoryID == categoryIds)?.categoryName || 'Unknown';
+      // console.log(product);
+      this.categoryWiseProducts.push({
+        categoryId: categoryIds || 0,
+        categoryName: productName,
+        products: product,
+      });
+    }
+    console.log(this.categoryWiseProducts);
+    // return newProductArray;
   }
 }
