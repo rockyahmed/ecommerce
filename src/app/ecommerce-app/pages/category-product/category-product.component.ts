@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component } from '@angular/core';
 import { ProductData, menuCategory } from '../../../models/menu-category-model';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 
@@ -28,9 +28,6 @@ export class CategoryProductComponent {
     this.categoryProductFilter();
 
     this.routeSubscribe();
-    
-   
-   
   }
 
   categoryMenuRecursiveFilter() {
@@ -86,13 +83,14 @@ export class CategoryProductComponent {
     }
   }
 
-  routeSubscribe(){
+  routeSubscribe() {
     this.route.queryParams.subscribe((data: any) => {
-      if(data){
-       const filteredProducts = this.categoryProductArray.filter(
-        (product) => product.productfkParentId == data.subcategoryId
-      );
-      this.displayedProducts = filteredProducts;
+      if (data) {
+        console.log(data, 'data check');
+        const filteredProducts = this.categoryProductArray.filter(
+          (product) => product.productfkParentId == data.subcategoryId
+        );
+        this.displayedProducts = filteredProducts;
       }
     });
   }
@@ -101,7 +99,7 @@ export class CategoryProductComponent {
     this.router.navigate([], {
       relativeTo: this.route,
       queryParams: { subcategoryId: subcategory.categoryID },
-      replaceUrl: true
-    })
+      replaceUrl: true,
+    });
   }
 }

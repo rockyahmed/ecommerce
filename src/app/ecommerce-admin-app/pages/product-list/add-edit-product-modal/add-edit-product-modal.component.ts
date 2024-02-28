@@ -42,11 +42,13 @@ export class AddEditProductModalComponent {
     if (storeData !== null) {
       this.formDataArray = JSON.parse(storeData);
     }
-    if (!this.getProductId()) {
-      this.productForm.get('productId')?.setValue(1);
-    } else {
-      this.productForm.get('productId')?.setValue(this.getProductId());
-    }
+    // if (!this.getProductId()) {
+    //   this.productForm.get('productId')?.setValue(1);
+    // } else {
+    //   this.productForm.get('productId')?.setValue(this.getProductId());
+    // }
+
+    this.productForm.get('productId')?.setValue(this.getProductId()+1)
     const productstoreData = localStorage.getItem('product-form-data');
 
     if (productstoreData !== null) {
@@ -85,11 +87,12 @@ export class AddEditProductModalComponent {
       );
 
       this.productForm.reset();
-      if (!this.getProductId()) {
-        this.productForm.get('productId')?.setValue(1);
-      } else {
-        this.productForm.get('productId')?.setValue(this.getProductId());
-      }
+      // if (!this.getProductId()) {
+      //   this.productForm.get('productId')?.setValue(1);
+      // } else {
+      //   this.productForm.get('productId')?.setValue(this.getProductId());
+      // }
+      this.productForm.get('productId')?.setValue(this.getProductId()+1);
     } else {
       const existProduct = this.productFormArray.findIndex(
         (p) => p.productId === this.product?.productId
@@ -114,7 +117,7 @@ export class AddEditProductModalComponent {
     const productStoreData = localStorage.getItem('product-form-data');
     if (productStoreData !== null) {
       const productFormArray = JSON.parse(productStoreData);
-      return productFormArray[productFormArray?.length - 1].productId + 1;
+      return productFormArray[productFormArray?.length - 1].productId;
     }
     return 0;
   }
