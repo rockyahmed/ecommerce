@@ -1,5 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { ProductData } from '../../../../models/menu-category-model';
+import { ProductCartService } from '../../../../shared/service/product-cart.service';
 
 @Component({
   selector: 'app-product',
@@ -11,21 +12,34 @@ import { ProductData } from '../../../../models/menu-category-model';
 export class ProductComponent {
   @Input() product!: ProductData;
 
-  quantity: number = 1;
+  productCount: number = 1;
 
-  increaseQuantity(productId: number | null) {
-    this.quantity++;
-    console.log("Adding item with ProductId:", productId, "and quantity:", this.quantity, "to cart");
+  constructor(private productCartService: ProductCartService) {
+
   }
 
-  decreaseQuantity(productId: number | null) {
-    if( this.quantity > 1 ){
-      this.quantity--;
-      console.log("Adding item with ProductId:", productId, "and quantity:", this.quantity, "to cart");
+  increaseproductCount(productId: number | null) {
+    this.productCount++;
+    console.log("Adding item with ProductId:", productId, "and productCount:", this.productCount, "to cart");
+  }
+
+  decreaseproductCount(productId: number | null) {
+    if( this.productCount > 1 ){
+      this.productCount--;
+      console.log("Adding item with ProductId:", productId, "and productCount:", this.productCount, "to cart");
     }
   }
 
+
+  updateProductCount() {
+    this.productCount++;
+    this.productCartService.updateProductCount(this.productCount)
+  }
+
+
   addToCart(productId: number | null) {
-    console.log("Adding item with ProductId:", productId, "and quantity:", this.quantity, "to cart");
+    // console.log("Adding item with ProductId:", productId, "and productCount:", this.productCount, "to cart");
+    this.updateProductCount();
+    console.log('Product added to cart')
   }
 }
