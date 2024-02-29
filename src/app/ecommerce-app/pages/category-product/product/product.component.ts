@@ -13,13 +13,15 @@ export class ProductComponent {
 
   quantity: number = 1;
 
-  increaseQuantity() {
+  increaseQuantity(productId: number | null) {
     this.quantity++;
+    console.log("Adding item with ProductId:", productId, "and quantity:", this.quantity, "to cart");
   }
 
-  decreaseQuantity() {
+  decreaseQuantity(productId: number | null) {
     if( this.quantity > 1 ){
       this.quantity--;
+      console.log("Adding item with ProductId:", productId, "and quantity:", this.quantity, "to cart");
     }
   }
 

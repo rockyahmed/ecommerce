@@ -8,9 +8,9 @@
     </h6>
     <p class="card-text">{{ product.productDescription }}</p>
     <div class="d-flex mb-2">
-      <button class="btn btn-light me-1 minus" type="button" (click)="decreaseQuantity()">-</button>
+      <button class="btn btn-light me-1 minus" type="button" (click)="decreaseQuantity(product.productId)">-</button>
       <input type="text" class="form-control" [value]="quantity" />
-      <button class="btn btn-light ms-1 plus" type="button" (click)="increaseQuantity()">+</button>
+      <button class="btn btn-light ms-1 plus" type="button" (click)="increaseQuantity(product.productId)">+</button>
     </div>
     <div class="d-flex justify-content-between">
       <button class="btn btn-primary" (click)="addToCart(product.productId)">
