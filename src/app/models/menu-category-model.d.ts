@@ -13,6 +13,7 @@ export interface ProductData {
   productWeight: number | null;
   productfkParentId: number | null;
   productDescription: string | null;
+  quantity: number;
 }
 
 export interface RoleName {
