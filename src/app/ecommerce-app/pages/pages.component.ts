@@ -17,6 +17,8 @@ export class PagesComponent implements OnInit {
 
   cartProducts: ProductData[] = [];
 
+  // cartAddedToProduct: ProductData[] = [];
+
   constructor(private productCartService: ProductCartService) {}
 
   ngOnInit(): void {
@@ -38,5 +40,22 @@ export class PagesComponent implements OnInit {
     });
 
     
+  }
+
+  removeFromCart(product: ProductData) {
+    let cartData: ProductData[] = JSON.parse(
+      localStorage.getItem('cart') || '[]'
+    );
+    const index = cartData.findIndex(
+      (item) => item.productId === product.productId
+    );
+    if (index !== -1) {
+      cartData.splice(index, 1);
+      localStorage.setItem('cart', JSON.stringify(cartData));
+      this.cartProducts = cartData; // Update cartAddedToProduct
+      // this.cartAddedToProduct.quantity = 1;
+      // this.productCartService.updateProductCount(this.quntity);
+      this.productCartService.productTotalList.next(this.cartProducts);
+    }
   }
 }

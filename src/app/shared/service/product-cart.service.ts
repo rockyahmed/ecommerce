@@ -14,7 +14,9 @@ export class ProductCartService {
 
   productTotalPrice: Subject<number> = new Subject();
 
-  constructor() { }
+  constructor() { 
+    
+  }
 
   // updateProductCount(count: any){
   //   this.productCount.next(count);
