@@ -57,7 +57,7 @@ export class ProductComponent implements OnInit {
       let cartData: ProductData[] = this.cartAddedToProduct;
       isExistProduct.quantity += 1;
       this.productCartService.productTotalList.next(this.cartAddedToProduct);
-      localStorage.setItem('car', JSON.stringify(cartData))
+      localStorage.setItem('cart', JSON.stringify(cartData))
     }
   }
 
