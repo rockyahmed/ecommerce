@@ -61,10 +61,16 @@ export class ProductComponent implements OnInit {
     }
   }
 
-  decreaseProductCount() {
+  decreaseProductCount(product: ProductData) {
     if (this.product.quantity > 1) {
       this.product.quantity--;
-      // this.productCartService.updateProductCount(this.quntity);
+      const isExistProduct = this.cartAddedToProduct.find(item => item.productId === product.productId);
+      if(isExistProduct) {
+        let cartData: ProductData[] = this.cartAddedToProduct;
+        isExistProduct.quantity -= 1;
+        this.productCartService.productTotalList.next(this.cartAddedToProduct);
+        localStorage.setItem('cart', JSON.stringify(cartData))
+      }
     }
   }
 
