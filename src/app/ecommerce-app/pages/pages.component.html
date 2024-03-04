@@ -17,12 +17,16 @@
           class="dropdown-menu dropdown-menu-right"
           style="width: 300px"
         >
-          <li class="dropdown-item border-bottom" *ngFor="let cartProduct of cartProducts;" role="menuitem">
+          <li
+            class="dropdown-item border-bottom"
+            *ngFor="let cartProduct of cartProducts"
+            role="menuitem"
+          >
             <div class="d-flex justify-content-between align-items-center">
               <div class="left">
-                <h6>{{cartProduct.productTitle}}</h6>
-                <p>Price: {{cartProduct.productPrice}}</p>
-                <p>Quntity:</p>
+                <h6>{{ cartProduct.productTitle }}</h6>
+                <p>Price: {{ cartProduct.productPrice }}</p>
+                <p>Quntity: {{ cartProduct.quantity }}</p>
               </div>
               <div class="right">
                 <button
