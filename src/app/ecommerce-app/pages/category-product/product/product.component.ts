@@ -24,8 +24,10 @@ export class ProductComponent implements OnInit {
     this.product.quantity = 1;
     this.loadCartFromLocalStorage();
 
-    const quantityStore = this.cartAddedToProduct.find(item => item.productId === this.product.productId);
-    if(quantityStore){
+    const quantityStore = this.cartAddedToProduct.find(
+      (item) => item.productId === this.product.productId
+    );
+    if (quantityStore) {
       this.product.quantity = quantityStore.quantity;
     }
   }
@@ -38,15 +40,21 @@ export class ProductComponent implements OnInit {
   }
 
   isProductInCart(product: ProductData) {
-    return this.cartAddedToProduct.some((itme) => itme.productId === product.productId);
+    return this.cartAddedToProduct.some(
+      (itme) => itme.productId === product.productId
+    );
   }
 
-  increaseproductCount() {
+  increaseProductCount() {
     this.product.quantity++;
     // this.productCartService.updateProductCount(this.quntity);
+    const isExistProduct = this.cartAddedToProduct.find((item) => item.productId === this.product.productId)
+    if(isExistProduct) {
+      this.product.quantity = isExistProduct.quantity;
+    }
   }
 
-  decreaseproductCount() {
+  decreaseProductCount() {
     if (this.product.quantity > 1) {
       this.product.quantity--;
       // this.productCartService.updateProductCount(this.quntity);
@@ -54,7 +62,9 @@ export class ProductComponent implements OnInit {
   }
 
   addToCart(product: ProductData) {
-    let cartData: ProductData[] = JSON.parse(localStorage.getItem('cart') || '[]');
+    let cartData: ProductData[] = JSON.parse(
+      localStorage.getItem('cart') || '[]'
+    );
     if (product && !this.isProductInCart(product)) {
       cartData.push(product);
       this.cartAddedToProduct = cartData;
@@ -64,10 +74,14 @@ export class ProductComponent implements OnInit {
     }
   }
 
-  removeFromCart(product: ProductData){
-    let cartData: ProductData[] = JSON.parse(localStorage.getItem('cart') || '[]');
-    const index = cartData.findIndex(item => item.productId === product.productId);
-    if(index !== -1){
+  removeFromCart(product: ProductData) {
+    let cartData: ProductData[] = JSON.parse(
+      localStorage.getItem('cart') || '[]'
+    );
+    const index = cartData.findIndex(
+      (item) => item.productId === product.productId
+    );
+    if (index !== -1) {
       cartData.splice(index, 1);
       localStorage.setItem('cart', JSON.stringify(cartData));
       this.cartAddedToProduct = cartData; // Update cartAddedToProduct
