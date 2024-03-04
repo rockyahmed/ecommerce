@@ -45,12 +45,19 @@ export class ProductComponent implements OnInit {
     );
   }
 
-  increaseProductCount() {
+  increaseproductCount(product: ProductData) {
     this.product.quantity++;
     // this.productCartService.updateProductCount(this.quntity);
-    const isExistProduct = this.cartAddedToProduct.find((item) => item.productId === this.product.productId)
-    if(isExistProduct) {
-      this.product.quantity = isExistProduct.quantity;
+    // const cartStoreData = this.loadCartFromLocalStorage();
+
+    const isExistProduct = this.cartAddedToProduct.find((item) => item.productId === product.productId);
+    console.log(isExistProduct);
+
+    if (isExistProduct) {
+      let cartData: ProductData[] = this.cartAddedToProduct;
+      isExistProduct.quantity += 1;
+      this.productCartService.productTotalList.next(this.cartAddedToProduct);
+      localStorage.setItem('cart', JSON.stringify(cartData))
     }
   }
 
@@ -85,6 +92,7 @@ export class ProductComponent implements OnInit {
       cartData.splice(index, 1);
       localStorage.setItem('cart', JSON.stringify(cartData));
       this.cartAddedToProduct = cartData; // Update cartAddedToProduct
+      this.product.quantity = 1;
       // this.productCartService.updateProductCount(this.quntity);
       this.productCartService.productTotalList.next(this.cartAddedToProduct);
     }
