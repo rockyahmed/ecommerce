@@ -92,6 +92,7 @@ export class ProductComponent implements OnInit {
       cartData.splice(index, 1);
       localStorage.setItem('cart', JSON.stringify(cartData));
       this.cartAddedToProduct = cartData; // Update cartAddedToProduct
+      this.product.quantity = 1;
       // this.productCartService.updateProductCount(this.quntity);
       this.productCartService.productTotalList.next(this.cartAddedToProduct);
     }
