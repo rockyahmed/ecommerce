@@ -3,6 +3,7 @@ import { EcommerceAppComponent } from './ecommerce-app/ecommerce-app.component';
 import { PagesComponent } from './ecommerce-app/pages/pages.component';
 import { CategoryProductComponent } from './ecommerce-app/pages/category-product/category-product.component';
 import { CustomerFormComponent } from './ecommerce-app/pages/customer-form/customer-form.component';
+import { CheckoutComponent } from './ecommerce-app/pages/checkout/checkout.component';
 
 export const routes: Routes = [
   {
@@ -37,6 +38,10 @@ export const routes: Routes = [
           {
             path: 'customer-form',
             component: CustomerFormComponent,
+          },
+          {
+            path: 'checkout',
+            component: CheckoutComponent,
           },
         ],
       },

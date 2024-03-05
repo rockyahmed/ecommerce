@@ -5,9 +5,7 @@ import { BsModalRef, BsModalService, ModalModule } from 'ngx-bootstrap/modal';
 import { AddEditProductModalComponent } from './add-edit-product-modal/add-edit-product-modal.component';
 import { ProductData } from '../../../models/menu-category-model';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { BrowserModule } from '@angular/platform-browser';
-import { HttpClientModule } from '@angular/common/http';
+
 @Component({
   selector: 'app-product-list',
   standalone: true,
