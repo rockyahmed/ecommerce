@@ -55,9 +55,8 @@ export class ProductComponent implements OnInit {
 
     if (isExistProduct) {
       let cartData: ProductData[] = this.cartAddedToProduct;
-      isExistProduct.quantity += 1;
-      this.productCartService.productTotalList.next(this.cartAddedToProduct);
       localStorage.setItem('cart', JSON.stringify(cartData))
+      this.productCartService.productTotalList.next(this.cartAddedToProduct);
     }
   }
 
@@ -67,9 +66,9 @@ export class ProductComponent implements OnInit {
       const isExistProduct = this.cartAddedToProduct.find(item => item.productId === product.productId);
       if(isExistProduct) {
         let cartData: ProductData[] = this.cartAddedToProduct;
-        isExistProduct.quantity -= 1;
-        this.productCartService.productTotalList.next(this.cartAddedToProduct);
         localStorage.setItem('cart', JSON.stringify(cartData))
+        this.productCartService.productTotalList.next(this.cartAddedToProduct);
+        
       }
     }
   }

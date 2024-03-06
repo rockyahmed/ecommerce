@@ -10,23 +10,17 @@ import { CustomerLoginModalComponent } from './customer-login-modal/customer-log
 @Component({
   selector: 'app-pages',
   standalone: true,
-  imports: [
-    RouterOutlet,
-    RouterLink,
-    BsDropdownModule,
-    CommonModule,
-  ],
+  imports: [RouterOutlet, RouterLink, BsDropdownModule, CommonModule],
   providers: [BsModalService],
   templateUrl: './pages.component.html',
   styleUrl: './pages.component.scss',
 })
 export class PagesComponent implements OnInit {
+  
   modalRef: BsModalRef | undefined;
   productLength: number | null | undefined;
 
-  cartProducts: ProductData[] = [];
-
-  // cartAddedToProduct: ProductData[] = [];
+  cartAddedToProduct: ProductData[] = [];
 
   constructor(
     private productCartService: ProductCartService,
@@ -42,13 +36,13 @@ export class PagesComponent implements OnInit {
     const cartStoreData = localStorage.getItem('cart');
 
     if (cartStoreData !== null) {
-      this.cartProducts = JSON.parse(cartStoreData);
-      this.productLength = this.cartProducts.length;
+      this.cartAddedToProduct = JSON.parse(cartStoreData);
+      this.productLength = this.cartAddedToProduct.length;
     }
 
     this.productCartService.productTotalList.subscribe((item) => {
       this.productLength = item.length;
-      this.cartProducts = item;
+      this.cartAddedToProduct = item;
     });
   }
 
@@ -61,11 +55,9 @@ export class PagesComponent implements OnInit {
     );
     if (index !== -1) {
       cartData.splice(index, 1);
+      this.cartAddedToProduct = cartData;
       localStorage.setItem('cart', JSON.stringify(cartData));
-      this.cartProducts = cartData; // Update cartAddedToProduct
-      // this.cartAddedToProduct.quantity = 1;
-      // this.productCartService.updateProductCount(this.quntity);
-      this.productCartService.productTotalList.next(this.cartProducts);
+      this.productCartService.productTotalList.next(this.cartAddedToProduct);
     }
   }
 

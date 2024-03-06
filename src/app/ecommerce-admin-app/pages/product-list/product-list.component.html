@@ -125,7 +125,15 @@
         <td>{{ product.productId }}</td>
         <td>{{ product.productTitle }}</td>
         <td>{{ product.productDescription }}</td>
-        <td><del>{{ product.productPrice }}</del> {{product.productPrice}}</td>
+        <td>
+          <del>{{ product.productPrice }}</del>
+          {{
+            product && product.productPrice && product.productDiscount
+              ? product.productPrice -
+                product.productPrice * (product.productDiscount / 100)
+              : 0
+          }}
+        </td>
         <td>Images</td>
         <td>{{ product.productDiscount }}</td>
         <td>{{ product.productWeight }}</td>

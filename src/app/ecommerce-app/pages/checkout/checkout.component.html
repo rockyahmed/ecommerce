@@ -2,15 +2,29 @@
   <div class="row">
     <div class="col-lg-8">
       <div class="product-list">
-        <div class="card product-card p-3 mb-3">
+        <div
+          class="card product-card p-3 mb-3"
+          *ngFor="let checkoutProduct of checkoutProductList"
+        >
           <div class="row">
             <div class="col-lg-2">
               <div class="product-img w-100 bg-primary-subtle h-100"></div>
             </div>
             <div class="col-lg-9">
               <div class="product-content">
-                <h5>Product 01</h5>
-                <h6><small>Price: </small> <del>150</del> 120</h6>
+                <h5>{{ checkoutProduct.productTitle }}</h5>
+                <h6>
+                  <small>Price: </small> <del>150</del>
+                  {{
+                    checkoutProduct &&
+                    checkoutProduct.productPrice &&
+                    checkoutProduct.productDiscount
+                      ? checkoutProduct.productPrice -
+                      checkoutProduct.productPrice *
+                          (checkoutProduct.productDiscount / 100)
+                      : 0
+                  }}
+                </h6>
                 <div class="d-flex mb-2">
                   <button class="btn btn-light me-1 minus" type="button">
                     -
@@ -19,6 +33,7 @@
                     type="text"
                     class="form-control"
                     style="width: 100px"
+                    [value]="checkoutProduct.quantity"
                   />
                   <button class="btn btn-light ms-1 plus" type="button">
                     +
@@ -38,8 +53,19 @@
       </div>
     </div>
     <div class="col-lg-4">
-      <div class="card p-3">
-        <h5>Order Summary</h5>
+      <div class="card p-3 dropdown-menu" style="z-index: 1;">
+        <h5 class="mb-2">Order Summary</h5>
+        <h6 class="d-flex justify-content-between">
+          <span>SubTotal({{ checkoutProductList.length }} items)</span>
+          <span>{{totalPrice}}</span>
+        </h6>
+        <span class="dropdown-divider"></span>
+        <h6 class="d-flex justify-content-between">
+          <span>Total</span> <span>{{totalPrice}}</span>
+        </h6>
+        <button type="button" class="btn btn-warning mt-2">
+          Proceed To Checkout({{ checkoutProductList.length }})
+        </button>
       </div>
     </div>
   </div>

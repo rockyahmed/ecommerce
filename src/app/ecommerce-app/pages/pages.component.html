@@ -15,22 +15,22 @@
         <ul
           *dropdownMenu
           class="dropdown-menu dropdown-menu-right py-0"
-          style="width: 300px"
+          style="width: 300px; z-index: 2;"
         >
           <li
             class="dropdown-item border-bottom"
-            *ngFor="let cartProduct of cartProducts"
+            *ngFor="let product of cartAddedToProduct"
             role="menuitem"
           >
             <div class="d-flex justify-content-between align-items-center">
               <div class="left">
-                <h6>{{ cartProduct.productTitle }}</h6>
-                <p>Price: {{ cartProduct.productPrice }}</p>
-                <p>Quntity: {{ cartProduct.quantity }}</p>
+                <h6>{{ product.productTitle }}</h6>
+                <p>Price: {{ product.productPrice }}</p>
+                <p>Quntity: {{ product.quantity }}</p>
               </div>
               <div class="right">
                 <button
-                (click)="removeFromCart(cartProduct)"
+                (click)="removeFromCart(product)"
                 type="button"
                 class="btn-close"
                 aria-label="Close"
