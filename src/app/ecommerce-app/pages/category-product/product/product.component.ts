@@ -23,7 +23,9 @@ export class ProductComponent implements OnInit {
     // });
     this.product.quantity = 1;
     this.loadCartFromLocalStorage();
-
+    this.productCartService.productTotalList.subscribe((item) => {
+      this.cartAddedToProduct = item;
+    });
     const quantityStore = this.cartAddedToProduct.find(
       (item) => item.productId === this.product.productId
     );
@@ -51,12 +53,12 @@ export class ProductComponent implements OnInit {
     // const cartStoreData = this.loadCartFromLocalStorage();
 
     const isExistProduct = this.cartAddedToProduct.find((item) => item.productId === product.productId);
-    console.log(isExistProduct);
 
     if (isExistProduct) {
       let cartData: ProductData[] = this.cartAddedToProduct;
-      localStorage.setItem('cart', JSON.stringify(cartData))
+      isExistProduct.quantity = this.product.quantity;
       this.productCartService.productTotalList.next(this.cartAddedToProduct);
+      localStorage.setItem('cart', JSON.stringify(cartData))
     }
   }
 
@@ -66,6 +68,7 @@ export class ProductComponent implements OnInit {
       const isExistProduct = this.cartAddedToProduct.find(item => item.productId === product.productId);
       if(isExistProduct) {
         let cartData: ProductData[] = this.cartAddedToProduct;
+        isExistProduct.quantity = this.product.quantity;
         localStorage.setItem('cart', JSON.stringify(cartData))
         this.productCartService.productTotalList.next(this.cartAddedToProduct);
         

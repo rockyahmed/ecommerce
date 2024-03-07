@@ -43,6 +43,7 @@ export class PagesComponent implements OnInit {
     this.productCartService.productTotalList.subscribe((item) => {
       this.productLength = item.length;
       this.cartAddedToProduct = item;
+      console.log("item", item)
     });
   }
 
