@@ -55,7 +55,6 @@ export class PagesComponent implements OnInit {
       (item) => item.productId === product.productId
     );
     if (index !== -1) {
-      product.quantity = 1;
       cartData.splice(index, 1);
       this.cartAddedToProduct = cartData;
       console.log(product.quantity)

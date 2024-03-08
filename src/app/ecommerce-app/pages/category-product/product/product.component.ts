@@ -25,6 +25,11 @@ export class ProductComponent implements OnInit {
     this.loadCartFromLocalStorage();
     this.productCartService.productTotalList.subscribe((item) => {
       this.cartAddedToProduct = item;
+      if(!this.cartAddedToProduct.some(
+        (itme) => itme.productId === this.product.productId
+      )){
+        this.product.quantity = 1;
+      }
     });
     const quantityStore = this.cartAddedToProduct.find(
       (item) => item.productId === this.product.productId
