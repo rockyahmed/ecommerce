@@ -14,7 +14,7 @@
               <div class="product-content">
                 <h5>{{ checkoutProduct.productTitle }}</h5>
                 <h6>
-                  <small>Price: </small> <del>150</del>
+                  <small>Price: </small> <del>{{checkoutProduct.productPrice}}</del>
                   {{
                     checkoutProduct &&
                     checkoutProduct.productPrice &&
@@ -35,7 +35,7 @@
                     style="width: 100px"
                     [value]="checkoutProduct.quantity"
                   />
-                  <button class="btn btn-light ms-1 plus" type="button">
+                  <button class="btn btn-light ms-1 plus" type="button" (click)="increaseproductCount(checkoutProduct)">
                     +
                   </button>
                 </div>
@@ -64,7 +64,7 @@
         <h6 class="d-flex justify-content-between">
           <span>Total</span> <span>{{totalPrice}}</span>
         </h6>
-        <button type="button" class="btn btn-warning mt-2">
+        <button type="button" class="btn btn-warning mt-2" (click)="loginModal()">
           Proceed To Checkout({{ checkoutProductList.length }})
         </button>
       </div>

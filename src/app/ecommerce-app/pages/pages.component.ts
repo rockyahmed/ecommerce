@@ -4,27 +4,24 @@ import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { ProductCartService } from '../../shared/service/product-cart.service';
 import { ProductData } from '../../models/menu-category-model';
 import { CommonModule } from '@angular/common';
-import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
-import { CustomerLoginModalComponent } from './customer-login-modal/customer-login-modal.component';
 
 @Component({
   selector: 'app-pages',
   standalone: true,
   imports: [RouterOutlet, RouterLink, BsDropdownModule, CommonModule],
-  providers: [BsModalService],
   templateUrl: './pages.component.html',
   styleUrl: './pages.component.scss',
 })
 export class PagesComponent implements OnInit {
   
-  modalRef: BsModalRef | undefined;
+  
   productLength: number | null | undefined;
 
   cartAddedToProduct: ProductData[] = [];
 
   constructor(
     private productCartService: ProductCartService,
-    private BsModalService: BsModalService
+    
   ) {}
 
   ngOnInit(): void {
@@ -63,16 +60,5 @@ export class PagesComponent implements OnInit {
     }
   }
 
-  loginModal() {
-    const initialState = {
-      title: 'Product Modal',
-    };
-
-    this.modalRef = this.BsModalService.show(CustomerLoginModalComponent, {
-      class: 'modal-lg',
-      initialState: initialState,
-      backdrop: true,
-      ignoreBackdropClick: true,
-    });
-  }
+ 
 }

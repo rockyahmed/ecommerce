@@ -15,7 +15,7 @@
         <ul
           *dropdownMenu
           class="dropdown-menu dropdown-menu-right py-0"
-          style="width: 300px; z-index: 2;"
+          style="width: 300px; z-index: 2"
         >
           <li
             class="dropdown-item border-bottom"
@@ -30,11 +30,11 @@
               </div>
               <div class="right">
                 <button
-                (click)="removeFromCart(product)"
-                type="button"
-                class="btn-close"
-                aria-label="Close"
-              ></button>
+                  (click)="removeFromCart(product); $event.stopPropagation()"
+                  type="button"
+                  class="btn-close"
+                  aria-label="Close"
+                ></button>
               </div>
             </div>
           </li>
