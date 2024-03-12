@@ -1,6 +1,11 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import {
+  FormBuilder,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
 import { BsModalRef } from 'ngx-bootstrap/modal';
 
 @Component({
@@ -15,7 +20,6 @@ export class CustomerLoginModalComponent implements OnInit {
   loginRegister: boolean = false;
 
   loginForm!: FormGroup;
-  
 
   constructor(public bsModalRef: BsModalRef, public fb: FormBuilder) {}
 
@@ -26,20 +30,26 @@ export class CustomerLoginModalComponent implements OnInit {
   createLoginForm() {
     this.loginForm = this.fb.group({
       email: [
-        Validators.required,
-        Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+.[a-z]{2,4}$'),
+        '',
+        [
+          Validators.required,
+          Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+.[a-z]{2,4}$'),
+        ],
       ],
       password: [
-        Validators.required,
-        Validators.pattern(
-          '(?=\\D*\\d)(?=[^a-z]*[a-z])(?=[^A-Z]*[A-Z]).{8,30}'
-        ),
+        '',
+        [
+          Validators.required,
+          Validators.pattern(
+            '(?=\\D*\\d)(?=[^a-z]*[a-z])(?=[^A-Z]*[A-Z]).{8,30}'
+          ),
+        ],
       ],
     });
   }
 
-  onSubmit(){
-    console.log(this.loginForm.value)
+  onSubmit() {
+    console.log(this.loginForm.value);
   }
 
   registerForm() {
