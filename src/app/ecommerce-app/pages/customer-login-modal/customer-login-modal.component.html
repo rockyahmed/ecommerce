@@ -8,7 +8,11 @@
     ></button>
   </div>
   <div class="modal-body">
-    <form>
+    <form
+      *ngIf="!loginRegister"
+      [formGroup]="loginForm"
+      (ngSubmit)="onSubmit()"
+    >
       <div class="row">
         <div class="col-lg-12 form-group mb-3">
           <label class="form-label">Email</label>
@@ -20,11 +24,25 @@
         </div>
         <div class="col-lg-12">
           <div class="d-flex justify-content-between">
-            <h6 class="text-primary cursor-pointer">Reset Your Password</h6>
-            <h6>New member? <span class="text-warning cursor-pointer">Register</span> here.</h6>
+            <h6 class="text-primary" role="button">Reset Your Password</h6>
+            <h6>
+              New member?
+              <span class="text-warning" role="button" (click)="registerForm()"
+                >Register</span
+              >
+              here.
+            </h6>
           </div>
         </div>
       </div>
+      <div class="row">
+        <div class="col-lg-12 my-4 form-group d-flex justify-content-center">
+          <button type="button" class="btn btn-danger">Cancel</button>
+          <button type="submit" class="btn btn-primary ms-3">Submit</button>
+        </div>
+      </div>
+    </form>
+    <form *ngIf="loginRegister">
       <div class="row">
         <div class="col-lg-6 form-group mb-3">
           <label class="form-label">Customer Name</label>
@@ -52,7 +70,7 @@
         </div>
       </div>
       <div class="row">
-        <div class="col-lg-12 mt-4 form-group d-flex justify-content-center">
+        <div class="col-lg-12 my-4 form-group d-flex justify-content-center">
           <button type="button" class="btn btn-danger">Cancel</button>
           <button type="submit" class="btn btn-primary ms-3">Submit</button>
         </div>
