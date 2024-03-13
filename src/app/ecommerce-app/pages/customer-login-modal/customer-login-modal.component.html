@@ -16,19 +16,26 @@
       <div class="row">
         <div class="col-lg-12 form-group mb-3">
           <label class="form-label">Email</label>
-          <input type="email" class="form-control" formControlName="email"
-          [class.is-invalid]="
-            loginForm.get('email')!.invalid &&
-            loginForm.get('email')!.touched
-          " />
+          <input
+            type="email"
+            class="form-control"
+            formControlName="email"
+            [class.is-invalid]="
+              loginForm.get('email')!.invalid && loginForm.get('email')!.touched
+            "
+          />
         </div>
         <div class="col-lg-12 form-group mb-3">
           <label class="form-label">Password</label>
-          <input type="password" class="form-control" formControlName="password"
-          [class.is-invalid]="
-            loginForm.get('password')!.invalid &&
-            loginForm.get('password')!.touched
-          " />
+          <input
+            type="password"
+            class="form-control"
+            formControlName="password"
+            [class.is-invalid]="
+              loginForm.get('password')!.invalid &&
+              loginForm.get('password')!.touched
+            "
+          />
         </div>
         <div class="col-lg-12">
           <div class="d-flex justify-content-between">
@@ -46,41 +53,99 @@
       <div class="row">
         <div class="col-lg-12 my-4 form-group d-flex justify-content-center">
           <button type="button" class="btn btn-danger">Cancel</button>
-          <button type="submit" class="btn btn-primary ms-3"  [disabled]="loginForm.invalid">Submit</button>
+          <button
+            type="submit"
+            class="btn btn-primary ms-3"
+            [disabled]="loginForm.invalid"
+          >
+            Submit
+          </button>
         </div>
       </div>
     </form>
-    <form *ngIf="loginRegister" [formGroup]="customerLoginForm" (ngSubmit)="customerOnSubmit()">
+    <form
+      *ngIf="loginRegister"
+      [formGroup]="customerLoginForm"
+      (ngSubmit)="customerOnSubmit()"
+    >
       <div class="row">
         <div class="col-lg-6 form-group mb-3">
           <label class="form-label">Customer Name</label>
-          <input type="text" class="form-control" formControlName="customerName" />
+          <input
+            type="text"
+            class="form-control"
+            formControlName="customerName"
+            [class.is-invalid]="
+              customerLoginForm.get('customerName')!.invalid &&
+              customerLoginForm.get('customerName')!.touched
+            "
+          />
         </div>
         <div class="col-lg-6 form-group mb-3">
           <label class="form-label">Customer Email</label>
-          <input type="email" class="form-control" formControlName="customerEmail" />
+          <input
+            type="email"
+            class="form-control"
+            formControlName="customerEmail"
+            [class.is-invalid]="
+              customerLoginForm.get('customerEmail')!.invalid &&
+              customerLoginForm.get('customerEmail')!.touched
+            "
+          />
         </div>
         <div class="col-lg-6 form-group mb-3">
-          <label class="form-label" formControlName="customerPassword">New Password</label>
-          <input type="text" class="form-control" />
+          <label class="form-label">New Password</label>
+          <input
+            type="password"
+            class="form-control"
+            formControlName="customerPassword"
+            [class.is-invalid]="
+              customerLoginForm.get('customerPassword')!.invalid &&
+              customerLoginForm.get('customerPassword')!.touched
+            "
+          />
         </div>
         <div class="col-lg-6 form-group mb-3">
           <label class="form-label">Confirm Password</label>
-          <input type="text" class="form-control" formArrayName="confirmPassword" />
+          <input
+            type="password"
+            class="form-control"
+            formControlName="confirmPassword"
+            [class.is-invalid]="
+              customerLoginForm.get('confirmPassword')!.invalid &&
+              customerLoginForm.get('confirmPassword')!.touched
+            "
+          />
         </div>
         <div class="col-lg-12 form-group mb-3">
           <label class="form-label">Customer Number</label>
-          <input type="text" class="form-control" formArrayName="customerNumber" />
+          <input
+            type="number"
+            class="form-control"
+            formControlName="customerNumber"
+            [class.is-invalid]="
+              customerLoginForm.get('customerNumber')!.invalid &&
+              customerLoginForm.get('customerNumber')!.touched
+            "
+          />
         </div>
         <div class="col-lg-12 form-group mb-3">
           <label class="form-label">Customer Address</label>
-          <textarea class="form-control" rows="5" formArrayName="customerAddress"></textarea>
+          <textarea
+            class="form-control"
+            rows="5"
+            formControlName="customerAddress"
+            [class.is-invalid]="
+              customerLoginForm.get('customerAddress')!.invalid &&
+              customerLoginForm.get('customerAddress')!.touched
+            "
+          ></textarea>
         </div>
       </div>
       <div class="row">
         <div class="col-lg-12 my-4 form-group d-flex justify-content-center">
           <button type="button" class="btn btn-danger">Cancel</button>
-          <button type="submit" class="btn btn-primary ms-3">Submit</button>
+          <button type="submit" class="btn btn-primary ms-3" [disabled]="customerLoginForm.invalid" >Submit</button>
         </div>
       </div>
     </form>

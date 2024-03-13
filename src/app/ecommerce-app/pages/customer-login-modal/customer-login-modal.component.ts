@@ -30,13 +30,16 @@ export class CustomerLoginModalComponent implements OnInit {
   constructor(public bsModalRef: BsModalRef, public fb: FormBuilder) {}
 
   ngOnInit(): void {
+    // this.customerLoginForm.get('customerId')?.setValue(this.getCustomerId() + 1);
     const strCustomerLoginData = localStorage.getItem('customer-login');
 
     if (strCustomerLoginData !== null) {
       this.customerLogin = JSON.parse(strCustomerLoginData);
+      
     }
 
     this.createLoginForm();
+    this.customerForm();
   }
 
   createLoginForm() {
@@ -79,10 +82,10 @@ export class CustomerLoginModalComponent implements OnInit {
           ),
         ],
       ],
-      confirmPassword:[''],
+      confirmPassword: [''],
       customerNumber: ['', Validators.required],
-      CustomerAddress: ['', Validators.required]
-    })
+      customerAddress: ['', Validators.required],
+    });
   }
 
   onSubmit() {
@@ -94,21 +97,54 @@ export class CustomerLoginModalComponent implements OnInit {
     );
 
     if (existingCustomer) {
-      if(existingCustomer.customerPassword === loginData.password){
-        localStorage.setItem('logged-in-user', JSON.stringify(existingCustomer));
-        console.log('Login Successful')
+      if (existingCustomer.customerPassword === loginData.password) {
+        localStorage.setItem(
+          'logged-in-user',
+          JSON.stringify(existingCustomer)
+        );
+        console.log('Login Successful');
       } else {
-        window.alert('Incorrect Password, Please try again.')
+        window.alert('Incorrect Password, Please try again.');
       }
     } else {
-      window.alert('Email Not Found, Please sign up')
+      window.alert('Email Not Found, Please sign up');
     }
   }
   customerOnSubmit() {
-    console.log(this.customerLoginForm.value)
+    const customerLoginData = this.customerLoginForm.value as CustomerLogin;
+
+    const existingCustomerInfo = this.customerLogin.find(
+      (item) => item.customerEmail === customerLoginData.customerEmail
+    );
+
+    if (existingCustomerInfo) {
+      window.alert('Email Already exists');
+    } else {
+      
+      this.customerLogin.push(customerLoginData);
+
+      localStorage.setItem(
+        'customer-login',
+        JSON.stringify(this.customerLogin)
+      );
+      this.customerLoginForm.get('customerId')?.setValue(this.getCustomerId() + 1);
+
+      
+
+      // Toggle any flag or variable indicating the state of your login/register interface
+      this.loginRegister = !this.loginRegister;
+    }
   }
 
   registerForm() {
     this.loginRegister = !this.loginRegister;
+  }
+  public getCustomerId() {
+    const customerLoginData = localStorage.getItem('customer-login');
+    if (customerLoginData !== null) {
+      const customerLogin = JSON.parse(customerLoginData);
+      return customerLogin[customerLogin?.length - 1].customerId;
+    }
+    return 0;
   }
 }
