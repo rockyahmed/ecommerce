@@ -35,3 +35,18 @@ export interface CategoryGroupProduct {
   categoryName: string;
   products: Array<ProductData>
 }
+export interface UserLogin {
+  push(loginDataExists: UserLogin): unknown;
+  userId: number;
+  email: string;
+  password: string;
+}
+export interface CustomerLogin {
+  customerId: number;
+  customerName: string;
+  customerEmail: string;
+  customerPassword: string;
+  customerConfirmPassword: string;
+  customerNumber: number;
+  customerAddresss: string;
+}
