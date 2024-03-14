@@ -30,8 +30,8 @@ export class CustomerLoginModalComponent implements OnInit {
   constructor(public bsModalRef: BsModalRef, public fb: FormBuilder) {}
 
   ngOnInit(): void {
-    // this.customerLoginForm.get('customerId')?.setValue(this.getCustomerId() + 1);
-    const strCustomerLoginData = localStorage.getItem('customer-login');
+    
+    const strCustomerLoginData = localStorage.getItem('customers-list');
 
     if (strCustomerLoginData !== null) {
       this.customerLogin = JSON.parse(strCustomerLoginData);
@@ -40,6 +40,8 @@ export class CustomerLoginModalComponent implements OnInit {
 
     this.createLoginForm();
     this.customerForm();
+
+    this.customerLoginForm.get('customerId')?.setValue(this.getCustomerId() + 1);
   }
 
   createLoginForm() {
@@ -65,6 +67,7 @@ export class CustomerLoginModalComponent implements OnInit {
 
   customerForm() {
     this.customerLoginForm = this.fb.group({
+      customerId: ['', Validators.required],
       customerName: ['', Validators.required],
       customerEmail: [
         '',
@@ -111,6 +114,7 @@ export class CustomerLoginModalComponent implements OnInit {
     }
   }
   customerOnSubmit() {
+    debugger
     const customerLoginData = this.customerLoginForm.value as CustomerLogin;
 
     const existingCustomerInfo = this.customerLogin.find(
@@ -124,7 +128,7 @@ export class CustomerLoginModalComponent implements OnInit {
       this.customerLogin.push(customerLoginData);
 
       localStorage.setItem(
-        'customer-login',
+        'customers-list',
         JSON.stringify(this.customerLogin)
       );
       this.customerLoginForm.get('customerId')?.setValue(this.getCustomerId() + 1);
@@ -140,7 +144,7 @@ export class CustomerLoginModalComponent implements OnInit {
     this.loginRegister = !this.loginRegister;
   }
   public getCustomerId() {
-    const customerLoginData = localStorage.getItem('customer-login');
+    const customerLoginData = localStorage.getItem('customers-list');
     if (customerLoginData !== null) {
       const customerLogin = JSON.parse(customerLoginData);
       return customerLogin[customerLogin?.length - 1].customerId;
