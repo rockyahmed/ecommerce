@@ -4,6 +4,7 @@ import { PagesComponent } from './ecommerce-app/pages/pages.component';
 import { CategoryProductComponent } from './ecommerce-app/pages/category-product/category-product.component';
 import { CustomerFormComponent } from './ecommerce-app/pages/customer-form/customer-form.component';
 import { CheckoutComponent } from './ecommerce-app/pages/checkout/checkout.component';
+import { PaymentComponent } from './ecommerce-app/pages/payment/payment.component';
 
 export const routes: Routes = [
   {
@@ -42,6 +43,10 @@ export const routes: Routes = [
           {
             path: 'checkout',
             component: CheckoutComponent,
+          },
+          {
+            path: 'payment',
+            component: PaymentComponent,
           },
         ],
       },

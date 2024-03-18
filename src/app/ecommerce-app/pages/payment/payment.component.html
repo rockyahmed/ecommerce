@@ -1,0 +1,72 @@
+<div class="app-main-area p-4">
+  <form class="row" [formGroup]="deliveryForm" (ngSubmit)="onSubmit()">
+    <div class="col-lg-6">
+      <div class="payment-details">
+        <div class="card product-card p-3 mb-3">
+          <div class="row">
+            <div class="col-lg-12">
+              <label class="form-label">Delivery Address</label>
+              <textarea rows="4" class="form-control"></textarea>
+            </div>
+            <div class="col-lg-12">
+              <label class="form-label">Customer Name</label>
+              <input type="text" class="form-control" />
+            </div>
+            <div class="col-lg-12">
+              <label class="form-label">Customer Email</label>
+              <input type="text" class="form-control" />
+            </div>
+            <div class="col-lg-12">
+              <label class="form-label">Customer Number</label>
+              <input type="number" class="form-control" />
+            </div>
+            <div class="col-lg-12">
+              <label class="form-label">Customer Address</label>
+              <textarea rows="4" class="form-control"></textarea>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-6">
+      <div class="row">
+        <div class="col-lg-6" *ngFor="let product of cartProductList">
+          <div class="card p-2 dropdown-menu" style="z-index: 1">
+            <div class="row">
+              <div class="col-lg-3 pe-0">
+                <div class="product-img w-100 bg-primary-subtle h-100"></div>
+              </div>
+              <div class="col-lg-9">
+                <h5>{{ product.productTitle }}</h5>
+                <h6><small>Price:</small> <del>250</del> 245</h6>
+                <h6>Discount Amount: 5</h6>
+                <h6>Qty: {{ product.quantity }}</h6>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="border p-3 mt-4">
+        <h3>Order Summary</h3>
+        <hr />
+        <h6 class="d-flex justify-content-between">
+          <span>Items Total</span>
+          <span>500</span>
+        </h6>
+        <h6 class="d-flex justify-content-between">
+          <span>Delivery Fee</span>
+          <span>50</span>
+        </h6>
+        <h6 class="d-flex justify-content-between">
+          <span>Total Payment</span>
+          <span>550</span>
+        </h6>
+
+        <button type="submit" class="btn btn-success w-100 mt-3">
+          Place Order
+        </button>
+      </div>
+    </div>
+  </form>
+</div>

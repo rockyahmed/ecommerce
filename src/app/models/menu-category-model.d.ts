@@ -36,7 +36,6 @@ export interface CategoryGroupProduct {
   products: Array<ProductData>
 }
 export interface UserLogin {
-  push(loginDataExists: UserLogin): unknown;
   userId: number;
   email: string;
   password: string;

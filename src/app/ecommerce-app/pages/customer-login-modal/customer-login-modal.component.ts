@@ -106,6 +106,7 @@ export class CustomerLoginModalComponent implements OnInit {
           JSON.stringify(existingCustomer)
         );
         console.log('Login Successful');
+        this.bsModalRef.hide();
       } else {
         window.alert('Incorrect Password, Please try again.');
       }
@@ -114,7 +115,6 @@ export class CustomerLoginModalComponent implements OnInit {
     }
   }
   customerOnSubmit() {
-    debugger
     const customerLoginData = this.customerLoginForm.value as CustomerLogin;
 
     const existingCustomerInfo = this.customerLogin.find(
