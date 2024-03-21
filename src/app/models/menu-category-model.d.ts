@@ -52,3 +52,11 @@ export interface CustomerLogin {
   deliveryAddress: string;
   products: Array<ProductData>
 }
+
+export interface WorkOrders{
+  workOrderId?: number;
+  workOrderNo?: string;
+  workOrderAmount: number;
+  fkPaymentId?: number;
+  paymentType?: number;
+}
