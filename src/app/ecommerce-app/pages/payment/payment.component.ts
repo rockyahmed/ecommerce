@@ -44,7 +44,7 @@ export class PaymentComponent implements OnInit {
     }
 
     this.createDeliveryForm();
-    this.listenValueChanges();
+    
 
     const confirmOrderData = localStorage.getItem('confirmOrder');
     if (confirmOrderData !== null) {
@@ -54,11 +54,12 @@ export class PaymentComponent implements OnInit {
     this.deliveryForm
       .get('deliveryOrderId')
       ?.setValue(this.getDeliveryOrderId() + 1);
+    
+    this.listenValueChanges();
   }
 
   createDeliveryForm() {
     this.deliveryForm = this.fb.group({
-      // deliveryOrderId: ['', Validators.required],
       deliveryAddress: ['', Validators.required],
       customerName: ['', Validators.required],
       customerEmail: [
@@ -70,12 +71,12 @@ export class PaymentComponent implements OnInit {
       ],
       customerNumber: ['', Validators.required],
       customerAddress: ['', Validators.required],
+      customerPayment: ['', Validators.required],
     });
   }
 
   listenValueChanges() {
-    this.deliveryForm.setValue({
-      // deliveryOrderId: '',
+    this.deliveryForm.patchValue({
       deliveryAddress: '',
       customerName: this.loginFormOB?.customerName,
       customerEmail: this.loginFormOB?.customerEmail,
@@ -108,8 +109,12 @@ export class PaymentComponent implements OnInit {
 
     const newWorkOrder: WorkOrders = {
       // workOrderId: this.getWorkOrderId(), // You should define a function to generate a unique ID
-        workOrderNo: workOrderNo,
+      workOrderId: this.getWorkOrderId() + 1,
+      workOrderNo: workOrderNo,
       workOrderAmount: totalAmount,
+      paymentType: this.confirmOrder?.customerPayment,
+      orderStatus: 1,
+      fkCustomerId: this.loginFormOB?.customerId ?? 0,
     };
 
     // Get existing WorkOrders array from localStorage or create an empty array
@@ -145,6 +150,14 @@ export class PaymentComponent implements OnInit {
     }
     return 0;
   }
+  public getWorkOrderId() {
+    const workOrderData = localStorage.getItem('workOrders');
+    if (workOrderData !== null) {
+      const workOrder = JSON.parse(workOrderData);
+      return workOrder[workOrder?.length - 1].workOrderId;
+    }
+    return 0;
+  }
 
   generateWorkOrderNo(): string {
     // You can implement a logic here to generate sequential work order numbers
@@ -153,7 +166,7 @@ export class PaymentComponent implements OnInit {
     let nextWorkOrderNo = 1;
 
     if (latestWorkOrderNo) {
-        nextWorkOrderNo = parseInt(latestWorkOrderNo.split('-')[1]) + 1;
+      nextWorkOrderNo = parseInt(latestWorkOrderNo.split('-')[1]) + 1;
     }
 
     const paddedNextWorkOrderNo = nextWorkOrderNo.toString().padStart(3, '0');
@@ -163,5 +176,5 @@ export class PaymentComponent implements OnInit {
     localStorage.setItem('latestWorkOrderNo', workOrderNo);
 
     return workOrderNo;
-}
+  }
 }

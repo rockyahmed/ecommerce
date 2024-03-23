@@ -50,13 +50,16 @@ export interface CustomerLogin {
   customerAddress: string;
   deliveryOrderId: number;
   deliveryAddress: string;
+  customerPayment: number;
   products: Array<ProductData>
 }
 
 export interface WorkOrders{
-  workOrderId?: number;
+  workOrderId: number;
   workOrderNo?: string;
   workOrderAmount: number;
   fkPaymentId?: number;
   paymentType?: number;
+  orderStatus?: number;
+  fkCustomerId: number;
 }

@@ -24,6 +24,26 @@
               <label class="form-label">Customer Address</label>
               <textarea rows="4" class="form-control" formControlName="customerAddress"></textarea>
             </div>
+            <div class="col-lg-12">
+              <h6>Payment Method: </h6>
+            </div>
+            <div class="col-lg-12">
+              <div class="col-lg-12 form-group mb-3">
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" name="customerPayment" type="radio" formControlName="customerPayment" value="1">
+                  <label class="form-check-label">
+                    Cash On Derlivery
+                  </label>
+                </div>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" name="customerPayment" formControlName="customerPayment" type="radio" value="2">
+                  <label class="form-check-label">
+                    Bekash
+                  </label>
+                </div>
+              </div>
+            </div>
+
           </div>
         </div>
       </div>
