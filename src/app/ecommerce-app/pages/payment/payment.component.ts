@@ -11,6 +11,7 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
+import { PaymentType } from '../../../enums/order.enum';
 
 @Component({
   selector: 'app-payment',
@@ -29,9 +30,12 @@ export class PaymentComponent implements OnInit {
 
   confirmOrder: CustomerLogin | undefined;
 
+  paymentType: typeof PaymentType | undefined;
+
   constructor(public fb: FormBuilder) {}
 
   ngOnInit(): void {
+    this.paymentType = PaymentType;
     const storedData = localStorage.getItem('cart');
     if (storedData !== null) {
       this.cartProductList = JSON.parse(storedData);
@@ -44,7 +48,6 @@ export class PaymentComponent implements OnInit {
     }
 
     this.createDeliveryForm();
-    
 
     const confirmOrderData = localStorage.getItem('confirmOrder');
     if (confirmOrderData !== null) {
@@ -54,7 +57,7 @@ export class PaymentComponent implements OnInit {
     this.deliveryForm
       .get('deliveryOrderId')
       ?.setValue(this.getDeliveryOrderId() + 1);
-    
+
     this.listenValueChanges();
   }
 
@@ -112,7 +115,10 @@ export class PaymentComponent implements OnInit {
       workOrderId: this.getWorkOrderId() + 1,
       workOrderNo: workOrderNo,
       workOrderAmount: totalAmount,
-      paymentType: this.confirmOrder?.customerPayment,
+      paymentType:
+        this.confirmOrder.customerPayment === 1
+          ? this.paymentType?.Cash
+          : this.paymentType?.Bekash,
       orderStatus: 1,
       fkCustomerId: this.loginFormOB?.customerId ?? 0,
     };
