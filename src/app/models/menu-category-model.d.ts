@@ -48,7 +48,6 @@ export interface CustomerLogin {
   customerConfirmPassword: string;
   customerNumber: number;
   customerAddress: string;
-  id: number;
   deliveryAddress: string;
   customerPayment: number;
   products: Array<ProductData>
