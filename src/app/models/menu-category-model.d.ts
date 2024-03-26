@@ -48,7 +48,7 @@ export interface CustomerLogin {
   customerConfirmPassword: string;
   customerNumber: number;
   customerAddress: string;
-  deliveryOrderId: number;
+  id: number;
   deliveryAddress: string;
   customerPayment: number;
   products: Array<ProductData>
@@ -62,4 +62,14 @@ export interface WorkOrders{
   paymentType?: number;
   orderStatus?: number;
   fkCustomerId: number;
+}
+export interface WorkOrderDetails{
+  id: number;
+  fkworkOrderId?: number;
+  workOrderNo?: string;
+  unitPrice?: number;
+  quantity?: number;
+  total?: number;
+  discount?: number;
+  discountAmount?: number;
 }

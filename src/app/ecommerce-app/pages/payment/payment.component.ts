@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {
   CustomerLogin,
   ProductData,
+  WorkOrderDetails,
   WorkOrders,
 } from '../../../models/menu-category-model';
 import { CommonModule } from '@angular/common';
@@ -48,6 +49,7 @@ export class PaymentComponent implements OnInit {
     }
 
     this.createDeliveryForm();
+    this.listenValueChanges();
 
     const confirmOrderData = localStorage.getItem('confirmOrder');
     if (confirmOrderData !== null) {
@@ -58,13 +60,12 @@ export class PaymentComponent implements OnInit {
     //   .get('id')
     //   ?.setValue(this.getDeliveryOrderId() + 1);
 
-    this.listenValueChanges();
+    
 
   }
 
   createDeliveryForm() {
     this.deliveryForm = this.fb.group({
-      // id: ['', Validators.required],
       deliveryAddress: ['', Validators.required],
       customerName: ['', Validators.required],
       customerEmail: [
@@ -132,6 +133,28 @@ export class PaymentComponent implements OnInit {
     // Store the updated array in localStorage
     localStorage.setItem('workOrders', JSON.stringify(workOrdersArray));
 
+    // WorkOrderDetails
+
+    
+
+    this.confirmOrder.products.forEach(element => {
+      const newWorkOrderDetails: WorkOrderDetails = {
+        id: this.getWorkOrdeDetailsId() + 1,
+      }
+      let workOrderDetailsArray: WorkOrderDetails[] = JSON.parse(
+        localStorage.getItem('workOrderDetails') || '[]'
+      );
+  
+      // Add the new WorkOrders object to the array
+      workOrderDetailsArray.push(newWorkOrderDetails);
+      localStorage.setItem('workOrderDetails', JSON.stringify(workOrderDetailsArray));
+    });
+
+    
+
+    // Store the updated array in localStorage
+   
+
     this.submitted = true;
   }
 
@@ -150,7 +173,7 @@ export class PaymentComponent implements OnInit {
     const confirmOrderData = localStorage.getItem('confirmOrder');
     if (confirmOrderData !== null) {
       const confirmOrder = JSON.parse(confirmOrderData);
-      return confirmOrder[confirmOrder?.length - 1].id;
+      return confirmOrder.id;
     }
     return 0;
   }
@@ -159,6 +182,14 @@ export class PaymentComponent implements OnInit {
     if (workOrderData !== null) {
       const workOrder = JSON.parse(workOrderData);
       return workOrder[workOrder?.length - 1].workOrderId;
+    }
+    return 0;
+  }
+  public getWorkOrdeDetailsId() {
+    const workOrderData = localStorage.getItem('workOrderDetails');
+    if (workOrderData !== null) {
+      const workOrder = JSON.parse(workOrderData);
+      return workOrder[workOrder?.length - 1].id;
     }
     return 0;
   }
