@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {
   CustomerLogin,
+  Invoice,
+  Payment,
   ProductData,
   WorkOrderDetails,
   WorkOrders,
@@ -78,6 +80,7 @@ export class PaymentComponent implements OnInit {
       customerNumber: ['', Validators.required],
       customerAddress: ['', Validators.required],
       customerPayment: ['', Validators.required],
+      transitionNumber: ['', Validators.required]
     });
   }
 
@@ -134,21 +137,67 @@ export class PaymentComponent implements OnInit {
     localStorage.setItem('workOrders', JSON.stringify(workOrdersArray));
 
     // WorkOrderDetails
-
-    
-
     this.confirmOrder.products.forEach(element => {
-      const newWorkOrderDetails: WorkOrderDetails = {
-        id: this.getWorkOrdeDetailsId() + 1,
+      if(element.productPrice !== null && element.productDiscount !== null) {
+        const discountAmountTotal = (element.productPrice * element.quantity) * (element.productDiscount / 100);
+        const totalPrice = (element.productPrice * element.quantity) - discountAmountTotal;
+        const singleDiscount = (element.productPrice * element.productDiscount) / 100;
+        const unitPriceCalculation = element.productPrice - singleDiscount;
+        
+        const newWorkOrderDetails: WorkOrderDetails = {
+          id: this.getWorkOrdeDetailsId() + 1,
+          fkworkOrderId: newWorkOrder.workOrderId,
+          fkProductId: element.productId || 0,
+          unitPrice: unitPriceCalculation,
+          quantity: element.quantity,
+          total: totalPrice,
+          discount: element.productDiscount,
+          discountAmount: discountAmountTotal
+        }
+        let workOrderDetailsArray: WorkOrderDetails[] = JSON.parse(
+          localStorage.getItem('workOrderDetails') || '[]'
+        );
+    
+        // Add the new WorkOrders object to the array
+        workOrderDetailsArray.push(newWorkOrderDetails);
+        localStorage.setItem('workOrderDetails', JSON.stringify(workOrderDetailsArray));
+      } else {
+        console.error('Product price and discount is null for element:', element);
       }
-      let workOrderDetailsArray: WorkOrderDetails[] = JSON.parse(
-        localStorage.getItem('workOrderDetails') || '[]'
-      );
-  
-      // Add the new WorkOrders object to the array
-      workOrderDetailsArray.push(newWorkOrderDetails);
-      localStorage.setItem('workOrderDetails', JSON.stringify(workOrderDetailsArray));
     });
+
+    // Invoice
+    const newInvoice: Invoice = {
+      id: this.getWorkOrdeDetailsId() + 1,
+      invoiceNo: `INID-00${this.getInvoiceId() + 1}`,
+      fkworkOrderId: newWorkOrder.workOrderId,
+    }
+
+    let InvoiceArray: Invoice[] = JSON.parse(
+      localStorage.getItem('Invoice') || '[]'
+    );
+
+    InvoiceArray.push(newInvoice);
+
+    localStorage.setItem('Invoice', JSON.stringify(InvoiceArray));
+
+
+    // Payment Info
+    const newPayment: Payment = {
+      id: this.getPaymentId() + 1,
+      receiptNo: `0000${this.getPaymentId() + 1}`,
+      fkworkOrderId: newWorkOrder.workOrderId,
+      fkInvoiceId: newInvoice.id,
+      transectionId: this.confirmOrder.transitionNumber,
+    }
+
+    let PaymentArray: Payment[] = JSON.parse(
+      localStorage.getItem('Payment') || '[]'
+    )
+
+    PaymentArray.push(newPayment);
+
+    localStorage.setItem('Payment', JSON.stringify(PaymentArray));
 
     
 
@@ -185,6 +234,22 @@ export class PaymentComponent implements OnInit {
     }
     return 0;
   }
+  public getInvoiceId() {
+    const invoiceData = localStorage.getItem('Invoice');
+    if (invoiceData !== null) {
+      const invoice = JSON.parse(invoiceData);
+      return invoice[invoice?.length - 1].invoiceNo;
+    }
+    return 0;
+  }
+  public getPaymentId() {
+    const paymentData = localStorage.getItem('Payment');
+    if (paymentData !== null) {
+      const payment = JSON.parse(paymentData);
+      return payment[payment?.length - 1].id;
+    }
+    return 0;
+  }
   public getWorkOrdeDetailsId() {
     const workOrderData = localStorage.getItem('workOrderDetails');
     if (workOrderData !== null) {
@@ -192,6 +257,17 @@ export class PaymentComponent implements OnInit {
       return workOrder[workOrder?.length - 1].id;
     }
     return 0;
+  }
+
+  isInputRequired(): boolean {
+    // Check if input field is required based on the selected payment method
+    const transitionNumber = this.deliveryForm.get('customerPayment')?.value;
+    return transitionNumber === '1' || transitionNumber === '2'; // Show input for both payment methods
+  }
+
+
+  onPaymentMethodChange(transitionNumber: number){
+
   }
 
 }

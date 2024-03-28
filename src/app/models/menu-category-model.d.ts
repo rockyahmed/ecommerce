@@ -50,6 +50,7 @@ export interface CustomerLogin {
   customerAddress: string;
   deliveryAddress: string;
   customerPayment: number;
+  transitionNumber: number;
   products: Array<ProductData>
 }
 
@@ -64,11 +65,26 @@ export interface WorkOrders{
 }
 export interface WorkOrderDetails{
   id: number;
-  fkworkOrderId?: number;
-  workOrderNo?: string;
-  unitPrice?: number;
-  quantity?: number;
-  total?: number;
-  discount?: number;
-  discountAmount?: number;
+  fkworkOrderId: number;
+  fkProductId: number;
+  unitPrice: number;
+  quantity: number;
+  total: number;
+  discount: number;
+  discountAmount: number;
+}
+
+export interface Invoice {
+  id: number;
+  invoiceNo: string;
+  fkworkOrderId: number;
+  status?: number,
+}
+
+export interface Payment {
+  id: number;
+  receiptNo: string,
+  fkworkOrderId: number,
+  fkInvoiceId: number,
+  transectionId: number,
 }

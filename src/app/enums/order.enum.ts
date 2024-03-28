@@ -9,3 +9,7 @@ export enum PaymentType {
   Cash = 1,
   Bekash = 2,
 }
+export enum InvoiceType {
+  Due = 1,
+  Received = 2,
+}
